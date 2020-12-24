@@ -1,0 +1,29 @@
+name: Go
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+  push:
+    branches:
+      - master
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.13
+      id: go
+    - name: install dependencies
+      run: |
+        go get -u github.com/go-telegram-bot-api/telegram-bot-api
+        go get github.com/google/go-github/github
+    - name: run scripts
+      run: |
+        go run my_github.go -tgid=${{ secrets.TELE_TOKEN }} -tgtoken=${{ secrets.TELE_CHAT_ID }} -username="${{ secrets.githubName }}"
