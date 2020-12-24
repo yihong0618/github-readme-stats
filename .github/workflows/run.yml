@@ -6,7 +6,7 @@ on:
     - cron: "0 * * * *"
   push:
     branches:
-      - master
+      - main
 
 jobs:
 
@@ -14,7 +14,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-
+    - uses: actions/checkout@v2
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
@@ -26,4 +26,4 @@ jobs:
         go get github.com/google/go-github/github
     - name: run scripts
       run: |
-        go run my_github.go -tgid=${{ secrets.TELE_TOKEN }} -tgtoken=${{ secrets.TELE_CHAT_ID }} -username="${{ secrets.githubName }}"
+        go run github.go -tgid="${{ secrets.TELE_CHAT_ID }}" -tgtoken=${{ secrets.TELE_TOKEN }} -username="${{ secrets.githubName }}"
