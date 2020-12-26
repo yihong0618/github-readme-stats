@@ -24,6 +24,7 @@ jobs:
       run: |
         go get -u github.com/go-telegram-bot-api/telegram-bot-api
         go get github.com/google/go-github/github
+        go get github.com/olekukonko/tablewriter
     - name: run scripts
       run: |
         go run github.go -tgid="${{ secrets.TELE_CHAT_ID }}" -tgtoken=${{ secrets.TELE_TOKEN }} -username="${{ secrets.githubName }}"
