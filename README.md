@@ -31,30 +31,30 @@
 |  2 | [leetcode-cli](https://github.com/leetcode-tools/leetcode-cli)            | 2019-11-29 | 2020-08-21 |       8 |
 |  3 | [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode) | 2019-12-03 | 2020-07-22 |       6 |
 |  4 | [nrc-exporter](https://github.com/yasoob/nrc-exporter)                    | 2020-07-05 | 2020-10-07 |       5 |
-|  5 | [awesome-cn-cafe](https://github.com/ElaWorkshop/awesome-cn-cafe)         | 2020-08-04 | 2020-08-10 |       3 |
-|  6 | [kb](https://github.com/gnebbia/kb)                                       | 2020-09-21 | 2020-09-23 |       3 |
+|  5 | [kb](https://github.com/gnebbia/kb)                                       | 2020-09-21 | 2020-09-23 |       3 |
+|  6 | [awesome-cn-cafe](https://github.com/ElaWorkshop/awesome-cn-cafe)         | 2020-08-04 | 2020-08-10 |       3 |
 |  7 | [activities](https://github.com/flopp/activities)                         | 2020-07-09 | 2020-07-14 |       2 |
 |  8 | [iredis](https://github.com/laixintao/iredis)                             | 2019-12-30 | 2020-09-16 |       2 |
-|  9 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
-| 10 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
-| 11 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
-| 12 | [py-staticmaps](https://github.com/flopp/py-staticmaps)                   | 2020-09-20 | 2020-09-20 |       1 |
-| 13 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
-| 14 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
-| 15 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
-| 16 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
+|  9 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
+| 10 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
+| 11 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
+| 12 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
+| 13 | [py-staticmaps](https://github.com/flopp/py-staticmaps)                   | 2020-09-20 | 2020-09-20 |       1 |
+| 14 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
+| 15 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
+| 16 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
 
 ## The repos I stared (random 10)
-| ID |                                     REPO                                      | STAREDDATE |     LAUGUAGE     | LATESTUPDATE |
-|----|-------------------------------------------------------------------------------|------------|------------------|--------------|
-|  1 | [Sourcetrail](https://github.com/CoatiSoftware/Sourcetrail)                   | 2019-11-20 | C++              | 2020-12-28   |
-|  2 | [python-pentest-tools](https://github.com/dloss/python-pentest-tools)         | 2019-03-07 | md               | 2020-12-27   |
-|  3 | [cookiecutter](https://github.com/cookiecutter/cookiecutter)                  | 2017-12-15 | Python           | 2020-12-27   |
-|  4 | [qr-filetransfer](https://github.com/sdushantha/qr-filetransfer)              | 2020-04-27 | Python           | 2020-12-22   |
-|  5 | [read_requests](https://github.com/wangshunping/read_requests)                | 2018-10-17 | md               | 2020-12-26   |
-|  6 | [pydata-book](https://github.com/wesm/pydata-book)                            | 2017-08-14 | Jupyter Notebook | 2020-12-28   |
-|  7 | [auth0-python-web-app](https://github.com/auth0-samples/auth0-python-web-app) | 2019-09-11 | Python           | 2020-12-17   |
-|  8 | [tenko](https://github.com/pvdz/tenko)                                        | 2019-11-11 | JavaScript       | 2020-12-27   |
-|  9 | [python-guide](https://github.com/realpython/python-guide)                    | 2017-06-13 | Batchfile        | 2020-12-28   |
-| 10 | [uber_go_guide_cn](https://github.com/xxjwxc/uber_go_guide_cn)                | 2019-10-21 | md               | 2020-12-28   |
+| ID |                                          REPO                                          | STAREDDATE |     LAUGUAGE     | LATESTUPDATE |
+|----|----------------------------------------------------------------------------------------|------------|------------------|--------------|
+|  1 | [c9-python-getting-started](https://github.com/microsoft/c9-python-getting-started)    | 2019-09-23 | Jupyter Notebook | 2020-12-28   |
+|  2 | [Gitter](https://github.com/kokohuang/Gitter)                                          | 2019-06-25 | JavaScript       | 2020-12-26   |
+|  3 | [python-LEC](https://github.com/cacolola/python-LEC)                                   | 2019-05-29 | Jupyter Notebook | 2020-08-05   |
+|  4 | [python3-source-code-analysis](https://github.com/flaggo/python3-source-code-analysis) | 2019-01-02 | Makefile         | 2020-12-26   |
+|  5 | [Python-Offer](https://github.com/JushuangQiao/Python-Offer)                           | 2018-07-12 | Python           | 2020-12-27   |
+|  6 | [Doraemon](https://github.com/modouxiansheng/Doraemon)                                 | 2019-08-28 | Java             | 2020-12-17   |
+|  7 | [fblog](https://github.com/ghost123gg/fblog)                                           | 2019-01-04 | Python           | 2020-12-20   |
+|  8 | [Learn-CV-The-Hard-Way](https://github.com/finlay-liu/Learn-CV-The-Hard-Way)           | 2019-11-27 | md               | 2020-10-13   |
+|  9 | [debugpy](https://github.com/microsoft/debugpy)                                        | 2020-05-25 | Python           | 2020-12-27   |
+| 10 | [typecho](https://github.com/typecho/typecho)                                          | 2018-07-24 | PHP              | 2020-12-27   |
 
