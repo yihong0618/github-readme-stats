@@ -20,10 +20,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Write README
-        uses: yihong0618/my_github@v1
+        uses: ./
         with:
-          TELEGRAM_TOKEN: ${{ secrets.TELE_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELE_CHAT_ID }}
+          TELEGRAM_TOKEN: ${{ inputs.TELE_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ inputs.TELE_CHAT_ID }}
       - name: Push README
         uses: github-actions-x/commit@v2.6
         with:
