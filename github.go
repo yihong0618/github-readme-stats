@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math/rand"
+	"os"
+	"path"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -261,11 +264,6 @@ func makeMdTable(data [][]string, header []string) string {
 	return tableString.String()
 }
 
-func makeStatsChartString(username string) string {
-	// need two \n
-	return fmt.Sprintf(`<img align="middle" src="https://github-readme-stats-1.yihong0618.vercel.app/api?username=%s&show_icons=true&&&hide_title=true" />`, username) + "\n" + "\n"
-}
-
 func makeCreatedString(repos []myRepoInfo) string {
 	starsData := [][]string{}
 	for i, repo := range repos {
@@ -316,14 +314,22 @@ func main() {
 	myStared := makeStaredRepos(stars)
 	myStaredString := makeStaredString(myStared, staredNumber)
 
-	totalMessage := genTgMessage(myRepos, totalCount, longest)
-	send2Telegram(telegramToken, telegramID, totalMessage)
+	if telegramToken != "" {
+		totalMessage := genTgMessage(myRepos, totalCount, longest)
+		send2Telegram(telegramToken, telegramID, totalMessage)
+	}
 
-	myChartString := makeStatsChartString(githubUserName)
 	myCreatedString := makeCreatedString(myRepos)
 	myPrString := makeContributedString(myPRs)
-	content := []byte(myTitle + myChartString + myCreatedString + myPrString + myStaredString)
-	err := ioutil.WriteFile("README.md", content, 0644)
+
+	readMeFile := path.Join(os.Getenv("GITHUB_WORKSPACE"), "README.md")
+	readMeContent, err := ioutil.ReadFile(readMeFile)
+	if err != nil {
+		panic(err)
+	}
+	re := regexp.MustCompile(`(<!--START_SECTION:my_github-->\n)[\s\S]*(<!--END_SECTION:my_github-->\n)`)
+	newContent := []byte(re.ReplaceAllString(string(readMeContent), `$1`+myCreatedString+myPrString+myStaredString+`$2`))
+	err = ioutil.WriteFile(readMeFile, newContent, 0644)
 	if err != nil {
 		panic(err)
 	}
