@@ -1,4 +1,5 @@
-name: "My GitHub"
+name: "My GitHub Status"
+icon: "calendar"
 description: "Generate my github status using GitHub Actions"
 inputs:
   GH_USERNAME:
@@ -29,7 +30,7 @@ runs:
     - "-tgid"
     - ${{ inputs.TELEGRAM_CHAT_ID }}
     - "-tgtoken"
-    - ${{ TELEGRAM_TOKEN }}
+    - ${{ inputs.TELEGRAM_TOKEN }}
 
 branding:
   icon: github
