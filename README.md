@@ -14,9 +14,9 @@
 |  8 | [blog](https://github.com/yihong0618/blog)                                 | 2020-06-22 | 2020-12-27 | JavaScript |     9 |
 |  9 | [Runtastic](https://github.com/yihong0618/Runtastic)                       | 2020-07-24 | 2020-11-16 | Python     |     7 |
 | 10 | [Python365](https://github.com/yihong0618/Python365)                       | 2019-09-05 | 2020-10-27 | Python     |     3 |
-| 11 | [yihong0618](https://github.com/yihong0618/yihong0618)                     | 2020-07-16 | 2020-12-11 | md         |     1 |
-| 12 | [edocteel001](https://github.com/yihong0618/edocteel001)                   | 2019-11-12 | 2020-05-18 | JavaScript |     1 |
-| 13 | [my_github](https://github.com/yihong0618/my_github)                       | 2020-12-24 | 2020-12-28 | Go         |     0 |
+| 11 | [my_github](https://github.com/yihong0618/my_github)                       | 2020-12-24 | 2020-12-28 | Go         |     2 |
+| 12 | [yihong0618](https://github.com/yihong0618/yihong0618)                     | 2020-07-16 | 2020-12-11 | md         |     1 |
+| 13 | [edocteel001](https://github.com/yihong0618/edocteel001)                   | 2019-11-12 | 2020-05-18 | JavaScript |     1 |
 | 14 | [2021](https://github.com/yihong0618/2021)                                 | 2020-12-21 | 2020-12-21 | md         |     0 |
 | 15 | [hoingyi_bot](https://github.com/yihong0618/hoingyi_bot)                   | 2019-10-16 | 2020-05-25 | Shell      |     0 |
 | 16 | [gaycore-server](https://github.com/yihong0618/gaycore-server)             | 2019-02-18 | 2020-11-02 | Go         |     0 |
@@ -31,30 +31,30 @@
 |  2 | [leetcode-cli](https://github.com/leetcode-tools/leetcode-cli)            | 2019-11-29 | 2020-08-21 |       8 |
 |  3 | [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode) | 2019-12-03 | 2020-07-22 |       6 |
 |  4 | [nrc-exporter](https://github.com/yasoob/nrc-exporter)                    | 2020-07-05 | 2020-10-07 |       5 |
-|  5 | [kb](https://github.com/gnebbia/kb)                                       | 2020-09-21 | 2020-09-23 |       3 |
-|  6 | [awesome-cn-cafe](https://github.com/ElaWorkshop/awesome-cn-cafe)         | 2020-08-04 | 2020-08-10 |       3 |
+|  5 | [awesome-cn-cafe](https://github.com/ElaWorkshop/awesome-cn-cafe)         | 2020-08-04 | 2020-08-10 |       3 |
+|  6 | [kb](https://github.com/gnebbia/kb)                                       | 2020-09-21 | 2020-09-23 |       3 |
 |  7 | [activities](https://github.com/flopp/activities)                         | 2020-07-09 | 2020-07-14 |       2 |
 |  8 | [iredis](https://github.com/laixintao/iredis)                             | 2019-12-30 | 2020-09-16 |       2 |
-|  9 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
-| 10 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
+|  9 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
+| 10 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
 | 11 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
-| 12 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
-| 13 | [py-staticmaps](https://github.com/flopp/py-staticmaps)                   | 2020-09-20 | 2020-09-20 |       1 |
-| 14 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
+| 12 | [py-staticmaps](https://github.com/flopp/py-staticmaps)                   | 2020-09-20 | 2020-09-20 |       1 |
+| 13 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
+| 14 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
 | 15 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
-| 16 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
+| 16 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
 
 ## The repos I stared (random 10)
-| ID |                                          REPO                                          | STAREDDATE |     LAUGUAGE     | LATESTUPDATE |
-|----|----------------------------------------------------------------------------------------|------------|------------------|--------------|
-|  1 | [c9-python-getting-started](https://github.com/microsoft/c9-python-getting-started)    | 2019-09-23 | Jupyter Notebook | 2020-12-28   |
-|  2 | [Gitter](https://github.com/kokohuang/Gitter)                                          | 2019-06-25 | JavaScript       | 2020-12-26   |
-|  3 | [python-LEC](https://github.com/cacolola/python-LEC)                                   | 2019-05-29 | Jupyter Notebook | 2020-08-05   |
-|  4 | [python3-source-code-analysis](https://github.com/flaggo/python3-source-code-analysis) | 2019-01-02 | Makefile         | 2020-12-26   |
-|  5 | [Python-Offer](https://github.com/JushuangQiao/Python-Offer)                           | 2018-07-12 | Python           | 2020-12-27   |
-|  6 | [Doraemon](https://github.com/modouxiansheng/Doraemon)                                 | 2019-08-28 | Java             | 2020-12-17   |
-|  7 | [fblog](https://github.com/ghost123gg/fblog)                                           | 2019-01-04 | Python           | 2020-12-20   |
-|  8 | [Learn-CV-The-Hard-Way](https://github.com/finlay-liu/Learn-CV-The-Hard-Way)           | 2019-11-27 | md               | 2020-10-13   |
-|  9 | [debugpy](https://github.com/microsoft/debugpy)                                        | 2020-05-25 | Python           | 2020-12-27   |
-| 10 | [typecho](https://github.com/typecho/typecho)                                          | 2018-07-24 | PHP              | 2020-12-27   |
+| ID |                                      REPO                                      | STAREDDATE |  LAUGUAGE  | LATESTUPDATE |
+|----|--------------------------------------------------------------------------------|------------|------------|--------------|
+|  1 | [leetcode](https://github.com/yuzhoujr/leetcode)                               | 2018-07-16 | Python     | 2020-12-27   |
+|  2 | [melody](https://github.com/olahol/melody)                                     | 2019-06-28 | Go         | 2020-12-24   |
+|  3 | [regexr](https://github.com/gskinner/regexr)                                   | 2019-03-14 | JavaScript | 2020-12-27   |
+|  4 | [chrome-extension-book](https://github.com/icepy/chrome-extension-book)        | 2019-06-02 | JavaScript | 2020-12-24   |
+|  5 | [Hanaasagi](https://github.com/Hanaasagi/Hanaasagi)                            | 2020-07-16 | md         | 2020-08-06   |
+|  6 | [TorCMS](https://github.com/bukun/TorCMS)                                      | 2018-05-11 | Python     | 2020-12-28   |
+|  7 | [python-mindwave-mobile](https://github.com/robintibor/python-mindwave-mobile) | 2017-06-03 | Python     | 2020-09-07   |
+|  8 | [ansible](https://github.com/ansible/ansible)                                  | 2019-03-04 | Python     | 2020-12-28   |
+|  9 | [Games](https://github.com/CharlesPikachu/Games)                               | 2019-03-22 | Python     | 2020-12-28   |
+| 10 | [legacy-blog](https://github.com/catmorphic/legacy-blog)                       | 2020-04-01 | JavaScript | 2020-10-07   |
 
