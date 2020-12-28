@@ -5,10 +5,11 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"log"
+	"math/rand"
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"github.com/google/go-github/github"
@@ -19,14 +20,17 @@ var (
 	githubUserName string
 	telegramID     int64
 	telegramToken  string
+	staredNumber   int
 )
 
 var baseURL = "https://github.com/"
 var myTitle = "# My GitHub Status\n"
-var myStatsChartTitle = `<img align="middle" src="https://github-readme-stats-1.yihong0618.vercel.app/api?username=yihong0618&show_icons=true&&&hide_title=true" />`
+var myCreatedTitle = "## The repos I created\n"
+var myContributedTitle = "## The repos I contributed to\n"
 
 func init() {
 	flag.Int64Var(&telegramID, "tgid", 0, "telegram room id")
+	flag.IntVar(&staredNumber, "stared", 10, "stared number random")
 	flag.StringVar(&telegramToken, "tgtoken", "", "token from telegram")
 	flag.StringVar(&githubUserName, "username", "", "github user name")
 }
@@ -58,8 +62,18 @@ func (p *myPrInfo) mdName() string {
 	return "[" + p.name + "]" + "(" + baseURL + q[len(q)-2] + "/" + q[len(q)-1] + ")"
 }
 
-func fetchAllRepos(username string) []*github.Repository {
-	client := github.NewClient(nil)
+type myStaredInfo struct {
+	staredDate string
+	desc       string
+	myRepoInfo
+}
+
+func getRepoName(RepositoryURL string) string {
+	q := strings.Split(RepositoryURL, "/")
+	return q[len(q)-1]
+}
+
+func fetchAllCreatedRepos(username string, client *github.Client) []*github.Repository {
 	opt := &github.RepositoryListOptions{
 		ListOptions: github.ListOptions{PerPage: 100},
 	}
@@ -67,7 +81,7 @@ func fetchAllRepos(username string) []*github.Repository {
 	for {
 		repos, resp, err := client.Repositories.List(context.Background(), username, opt)
 		if err != nil {
-			fmt.Println("wrong")
+			fmt.Println("Something wrong to get repos")
 		}
 		allRepos = append(allRepos, repos...)
 		if resp.NextPage == 0 {
@@ -78,14 +92,37 @@ func fetchAllRepos(username string) []*github.Repository {
 	return allRepos
 }
 
-func getRepoName(RepositoryURL string) string {
-	q := strings.Split(RepositoryURL, "/")
-	return q[len(q)-1]
+func makeCreatedRepos(repos []*github.Repository) ([]myRepoInfo, int, int) {
+	totalCount := 0
+	longest := 0
+	myRepos := []myRepoInfo{}
+	for _, repo := range repos {
+		if !*repo.Fork {
+			create := (*repo.CreatedAt).String()[:10]
+			update := (*repo.UpdatedAt).String()[:10]
+			lauguage := "md"
+			if repo.Language != nil {
+				lauguage = *repo.Language
+			}
+			myRepos = append(myRepos, myRepoInfo{
+				star:     *repo.StargazersCount,
+				name:     *repo.Name,
+				create:   create,
+				update:   update,
+				lauguage: lauguage,
+				HTMLURL:  *repo.HTMLURL,
+			})
+			totalCount = totalCount + *repo.StargazersCount
+			if len(*repo.Name) > longest {
+				longest = len(*repo.Name)
+			}
+		}
+	}
+	return myRepos, totalCount, longest
 }
 
-func fetchAllPrIssues(username string) []*github.Issue {
-	client := github.NewClient(nil)
-	opt := &github.SearchOptions{ListOptions: github.ListOptions{Page: 1, PerPage: 100}}
+func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
+	opt := &github.SearchOptions{ListOptions: github.ListOptions{PerPage: 100}}
 	nowPage := 100
 	var allIssues []*github.Issue
 	for {
@@ -97,6 +134,7 @@ func fetchAllPrIssues(username string) []*github.Issue {
 		if nowPage >= result.GetTotal() {
 			break
 		}
+		opt.Page = opt.Page + 1
 		nowPage = nowPage + 100
 	}
 	return allIssues
@@ -138,6 +176,56 @@ func makePrRepos(issues []*github.Issue) []myPrInfo {
 	return myPrs
 }
 
+func fetchAllStared(username string, client *github.Client) []*github.StarredRepository {
+	opt := &github.ActivityListStarredOptions{
+		ListOptions: github.ListOptions{Page: 1, PerPage: 100},
+	}
+	var allStared []*github.StarredRepository
+	for {
+		repos, resp, err := client.Activity.ListStarred(context.Background(), username, opt)
+		if err != nil {
+			fmt.Println("Something wrong to get stared")
+		}
+		allStared = append(allStared, repos...)
+		if resp.NextPage == 0 {
+			break
+		}
+		opt.Page = resp.NextPage
+	}
+	return allStared
+}
+
+func makeStaredRepos(stars []*github.StarredRepository) []myStaredInfo {
+	myStars := []myStaredInfo{}
+	for _, star := range stars {
+		repo := *star.Repository
+		lauguage := "md"
+		if repo.Language != nil {
+			lauguage = *repo.Language
+		}
+		desc := ""
+		if repo.Description != nil {
+			desc = *repo.Description
+		}
+
+		myStars = append(myStars, myStaredInfo{
+			staredDate: (*star.StarredAt).String()[:10],
+			desc:       desc,
+			myRepoInfo: myRepoInfo{
+				name:     *repo.Name,
+				create:   (*repo.CreatedAt).String()[:10],
+				update:   (*repo.UpdatedAt).String()[:10],
+				lauguage: lauguage,
+				HTMLURL:  *repo.HTMLURL,
+			},
+		})
+	}
+	// shffle to get random array
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(len(myStars), func(i, j int) { myStars[i], myStars[j] = myStars[j], myStars[i] })
+	return myStars
+}
+
 func genTgMessage(myRepos []myRepoInfo, totalCount int, longest int) string {
 	totalMessage := fmt.Sprintf("Total stars: %d", totalCount)
 	totalMessage = totalMessage + "\n```"
@@ -150,15 +238,16 @@ func genTgMessage(myRepos []myRepoInfo, totalCount int, longest int) string {
 	return totalMessage
 }
 
-func send2Telegram(tgToken string, roomID int64, message string) {
+func send2Telegram(tgToken string, roomID int64, message string) bool {
 	bot, err := tgbotapi.NewBotAPI(tgToken)
 	if err != nil {
-		log.Panic(err)
+		return false
 	}
 
 	s := tgbotapi.NewMessage(roomID, message)
 	s.ParseMode = "MarkdownV2"
 	bot.Send(s)
+	return true
 }
 
 func makeMdTable(data [][]string, header []string) string {
@@ -172,62 +261,69 @@ func makeMdTable(data [][]string, header []string) string {
 	return tableString.String()
 }
 
+func makeStatsChartString(username string) string {
+	// need two \n
+	return fmt.Sprintf(`<img align="middle" src="https://github-readme-stats-1.yihong0618.vercel.app/api?username=%s&show_icons=true&&&hide_title=true" />`, username) + "\n" + "\n"
+}
+
+func makeCreatedString(repos []myRepoInfo) string {
+	starsData := [][]string{}
+	for i, repo := range repos {
+		starsData = append(starsData, []string{strconv.Itoa(i + 1), repo.mdName(), repo.create, repo.update, repo.lauguage, strconv.Itoa(repo.star)})
+	}
+	myStarsString := makeMdTable(starsData, []string{"ID", "Repo", "Start", "Update", "Lauguage", "Stars"})
+	return myCreatedTitle + myStarsString + "\n"
+}
+
+func makeContributedString(myPRs []myPrInfo) string {
+	prsData := [][]string{}
+	for i, pr := range myPRs {
+		prsData = append(prsData, []string{strconv.Itoa(i + 1), pr.mdName(), pr.fisrstDate, pr.lasteDate, strconv.Itoa(pr.prCount)})
+	}
+	myPrString := makeMdTable(prsData, []string{"ID", "Repo", "firstDate", "lasteDate", "prCount"})
+	return myContributedTitle + myPrString + "\n"
+}
+
+func makeStaredString(myStars []myStaredInfo, starNumber int) string {
+	myStaredTitle := fmt.Sprintf("## The repos I stared (random %s)", strconv.Itoa(starNumber)) + "\n"
+	starsData := [][]string{}
+	for i, star := range myStars[:starNumber] {
+		repo := star.myRepoInfo
+		starsData = append(starsData, []string{strconv.Itoa(i + 1), repo.mdName(), star.staredDate, repo.lauguage, repo.update})
+	}
+	myStaredString := makeMdTable(starsData, []string{"ID", "Repo", "staredDate", "Lauguage", "LatestUpdate"})
+	return myStaredTitle + myStaredString + "\n"
+}
+
 func main() {
 	flag.Parse()
-	repos := fetchAllRepos(githubUserName)
-	totalCount := 0
-	longest := 0
-	myRepos := []myRepoInfo{}
-	for _, repo := range repos {
-		if !*repo.Fork {
-			create := (*repo.CreatedAt).String()[:10]
-			update := (*repo.UpdatedAt).String()[:10]
-			lauguage := "md"
-			if repo.Language != nil {
-				lauguage = *repo.Language
-			}
-			myRepos = append(myRepos, myRepoInfo{
-				star:     *repo.StargazersCount,
-				name:     *repo.Name,
-				create:   create,
-				update:   update,
-				lauguage: lauguage,
-				HTMLURL:  *repo.HTMLURL,
-			})
-			totalCount = totalCount + *repo.StargazersCount
-			if len(*repo.Name) > longest {
-				longest = len(*repo.Name)
-			}
-		}
-	}
+	client := github.NewClient(nil)
+	repos := fetchAllCreatedRepos(githubUserName, client)
+	myRepos, totalCount, longest := makeCreatedRepos(repos)
+	// change sort logic here
 	sort.Slice(myRepos[:], func(i, j int) bool {
 		return myRepos[j].star < myRepos[i].star
 	})
 
-	issues := fetchAllPrIssues(githubUserName)
+	issues := fetchAllPrIssues(githubUserName, client)
 	myPRs := makePrRepos(issues)
+	// change sort logic here
 	sort.Slice(myPRs[:], func(i, j int) bool {
 		return myPRs[j].prCount < myPRs[i].prCount
 	})
 
-	fmt.Println(myPRs)
-	// totalMessage := genTgMessage(myRepos, totalCount, longest)
-	// send2Telegram(telegramToken, telegramID, totalMessage)
-	starsData := [][]string{}
-	for _, repo := range myRepos {
-		starsData = append(starsData, []string{repo.mdName(), repo.create, repo.update, repo.lauguage, strconv.Itoa(repo.star)})
-	}
-	myStarsString := makeMdTable(starsData, []string{"Repo", "Start", "Update", "Lauguage", "Stars"})
+	stars := fetchAllStared(githubUserName, client)
+	myStared := makeStaredRepos(stars)
+	myStaredString := makeStaredString(myStared, staredNumber)
 
-	prsData := [][]string{}
-	for _, pr := range myPRs {
-		prsData = append(prsData, []string{pr.mdName(), pr.fisrstDate, pr.lasteDate, strconv.Itoa(pr.prCount)})
-	}
-	myPrString := makeMdTable(prsData, []string{"Repo", "firstDate", "lasteDate", "prCount"})
+	totalMessage := genTgMessage(myRepos, totalCount, longest)
+	send2Telegram(telegramToken, telegramID, totalMessage)
 
-	content := []byte(myTitle + "\n" + myStarsString + "\n" + "\n" + "# My PRs\n" + "\n" + myPrString)
-	err := ioutil.WriteFile("test.md", content, 0644)
-	fmt.Println(myStatsChartTitle)
+	myChartString := makeStatsChartString(githubUserName)
+	myCreatedString := makeCreatedString(myRepos)
+	myPrString := makeContributedString(myPRs)
+	content := []byte(myTitle + myChartString + myCreatedString + myPrString + myStaredString)
+	err := ioutil.WriteFile("README.md", content, 0644)
 	if err != nil {
 		panic(err)
 	}

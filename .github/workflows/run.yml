@@ -8,6 +8,11 @@ on:
     branches:
       - main
 
+env:
+  GITHUB_NAME: yihong0618
+  GITHUB_EMAIL: zouzou0208@gmail.com
+  STARED_NUMBER: 10
+
 jobs:
 
   build:
@@ -27,4 +32,13 @@ jobs:
         go get github.com/olekukonko/tablewriter
     - name: run scripts
       run: |
-        go run github.go -tgid="${{ secrets.TELE_CHAT_ID }}" -tgtoken=${{ secrets.TELE_TOKEN }} -username="${{ secrets.githubName }}"
+        go run github.go -tgid="${{ secrets.TELE_CHAT_ID }}" -tgtoken=${{ secrets.TELE_TOKEN }} -username="${{ env.GITHUB_NAME }}" -stared=${{ env.STARED_NUMBER }}
+    - name: Push README
+      uses: github-actions-x/commit@v2.6
+      with:
+        github-token: ${{ secrets.G_T }}
+        commit-message: "Refresh README (GITHUB STATUS)"
+        files: README.md
+        rebase: 'true'
+        name: ${{ env.GITHUB_NAME }}
+        email: ${{ env.GITHUB_EMAIL }}
