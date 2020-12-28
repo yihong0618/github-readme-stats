@@ -33,28 +33,28 @@
 |  4 | [nrc-exporter](https://github.com/yasoob/nrc-exporter)                    | 2020-07-05 | 2020-10-07 |       5 |
 |  5 | [awesome-cn-cafe](https://github.com/ElaWorkshop/awesome-cn-cafe)         | 2020-08-04 | 2020-08-10 |       3 |
 |  6 | [kb](https://github.com/gnebbia/kb)                                       | 2020-09-21 | 2020-09-23 |       3 |
-|  7 | [activities](https://github.com/flopp/activities)                         | 2020-07-09 | 2020-07-14 |       2 |
-|  8 | [iredis](https://github.com/laixintao/iredis)                             | 2019-12-30 | 2020-09-16 |       2 |
-|  9 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
-| 10 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
-| 11 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
-| 12 | [py-staticmaps](https://github.com/flopp/py-staticmaps)                   | 2020-09-20 | 2020-09-20 |       1 |
-| 13 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
-| 14 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
-| 15 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
+|  7 | [iredis](https://github.com/laixintao/iredis)                             | 2019-12-30 | 2020-09-16 |       2 |
+|  8 | [activities](https://github.com/flopp/activities)                         | 2020-07-09 | 2020-07-14 |       2 |
+|  9 | [py-staticmaps](https://github.com/flopp/py-staticmaps)                   | 2020-09-20 | 2020-09-20 |       1 |
+| 10 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
+| 11 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
+| 12 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
+| 13 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
+| 14 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
+| 15 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
 | 16 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
 
 ## The repos I stared (random 10)
-| ID |                                      REPO                                      | STAREDDATE |  LAUGUAGE  | LATESTUPDATE |
-|----|--------------------------------------------------------------------------------|------------|------------|--------------|
-|  1 | [leetcode](https://github.com/yuzhoujr/leetcode)                               | 2018-07-16 | Python     | 2020-12-27   |
-|  2 | [melody](https://github.com/olahol/melody)                                     | 2019-06-28 | Go         | 2020-12-24   |
-|  3 | [regexr](https://github.com/gskinner/regexr)                                   | 2019-03-14 | JavaScript | 2020-12-27   |
-|  4 | [chrome-extension-book](https://github.com/icepy/chrome-extension-book)        | 2019-06-02 | JavaScript | 2020-12-24   |
-|  5 | [Hanaasagi](https://github.com/Hanaasagi/Hanaasagi)                            | 2020-07-16 | md         | 2020-08-06   |
-|  6 | [TorCMS](https://github.com/bukun/TorCMS)                                      | 2018-05-11 | Python     | 2020-12-28   |
-|  7 | [python-mindwave-mobile](https://github.com/robintibor/python-mindwave-mobile) | 2017-06-03 | Python     | 2020-09-07   |
-|  8 | [ansible](https://github.com/ansible/ansible)                                  | 2019-03-04 | Python     | 2020-12-28   |
-|  9 | [Games](https://github.com/CharlesPikachu/Games)                               | 2019-03-22 | Python     | 2020-12-28   |
-| 10 | [legacy-blog](https://github.com/catmorphic/legacy-blog)                       | 2020-04-01 | JavaScript | 2020-10-07   |
+| ID |                                     REPO                                      | STAREDDATE |     LAUGUAGE     | LATESTUPDATE |
+|----|-------------------------------------------------------------------------------|------------|------------------|--------------|
+|  1 | [iPERCore](https://github.com/iPERDance/iPERCore)                             | 2020-12-14 | Python           | 2020-12-28   |
+|  2 | [weekly.manong.io](https://github.com/toutiaoio/weekly.manong.io)             | 2019-06-27 | md               | 2020-12-27   |
+|  3 | [ABD](https://github.com/malrev/ABD)                                          | 2020-02-14 | Jupyter Notebook | 2020-12-26   |
+|  4 | [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)             | 2019-10-17 | Python           | 2020-12-28   |
+|  5 | [aioshadowsocks](https://github.com/Ehco1996/aioshadowsocks)                  | 2019-07-05 | Python           | 2020-12-27   |
+|  6 | [headless-recorder](https://github.com/checkly/headless-recorder)             | 2020-10-17 | JavaScript       | 2020-12-27   |
+|  7 | [AwesomeXSS](https://github.com/s0md3v/AwesomeXSS)                            | 2019-07-04 | JavaScript       | 2020-12-27   |
+|  8 | [break_arcade_games_out](https://github.com/DanZaidan/break_arcade_games_out) | 2019-11-27 | C                | 2020-12-10   |
+|  9 | [read_requests](https://github.com/wangshunping/read_requests)                | 2018-10-17 | md               | 2020-12-26   |
+| 10 | [docker-mindmap](https://github.com/Weiwf/docker-mindmap)                     | 2019-05-16 | md               | 2020-10-30   |
 
