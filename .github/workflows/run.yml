@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Write README
-        uses: ./ # For testing, replace with yihong0618/my_github@v1 after published
+        uses: yihong0618/my_github@v1
         with:
           TELEGRAM_TOKEN: ${{ secrets.TELE_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELE_CHAT_ID }}
