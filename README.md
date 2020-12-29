@@ -36,27 +36,27 @@
 |  6 | [kb](https://github.com/gnebbia/kb)                                       | 2020-09-21 | 2020-09-23 |       3 |
 |  7 | [activities](https://github.com/flopp/activities)                         | 2020-07-09 | 2020-07-14 |       2 |
 |  8 | [iredis](https://github.com/laixintao/iredis)                             | 2019-12-30 | 2020-09-16 |       2 |
-|  9 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
-| 10 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
-| 11 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
-| 12 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
-| 13 | [py-staticmaps](https://github.com/flopp/py-staticmaps)                   | 2020-09-20 | 2020-09-20 |       1 |
-| 14 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
-| 15 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
-| 16 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
+|  9 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
+| 10 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
+| 11 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
+| 12 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
+| 13 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
+| 14 | [py-staticmaps](https://github.com/flopp/py-staticmaps)                   | 2020-09-20 | 2020-09-20 |       1 |
+| 15 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
+| 16 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
 
 ## The repos I stared (random 10)
-| ID |                                           REPO                                           | STAREDDATE | LAUGUAGE | LATESTUPDATE |
-|----|------------------------------------------------------------------------------------------|------------|----------|--------------|
-|  1 | [mkdocs](https://github.com/mkdocs/mkdocs)                                               | 2019-09-19 | Python   | 2020-12-29   |
-|  2 | [write-a-hash-table](https://github.com/jamesroutley/write-a-hash-table)                 | 2020-10-28 | md       | 2020-12-29   |
-|  3 | [go101](https://github.com/go101/go101)                                                  | 2019-05-17 | HTML     | 2020-12-29   |
-|  4 | [FASPell](https://github.com/iqiyi/FASPell)                                              | 2019-11-19 | Python   | 2020-12-27   |
-|  5 | [pyhttptest](https://github.com/slaily/pyhttptest)                                       | 2019-12-23 | Python   | 2020-12-03   |
-|  6 | [threes-ai](https://github.com/halfrost/threes-ai)                                       | 2018-06-07 | Go       | 2020-12-20   |
-|  7 | [UniLua](https://github.com/xebecnan/UniLua)                                             | 2020-04-27 | C#       | 2020-12-09   |
-|  8 | [daily_algorithms](https://github.com/shidenggui/daily_algorithms)                       | 2019-11-05 | C        | 2020-12-05   |
-|  9 | [advanced-go-programming-book](https://github.com/chai2010/advanced-go-programming-book) | 2019-07-13 | Go       | 2020-12-29   |
-| 10 | [boltons](https://github.com/mahmoud/boltons)                                            | 2018-10-11 | Python   | 2020-12-28   |
+| ID |                                              REPO                                               | STAREDDATE |     LAUGUAGE     | LATESTUPDATE |
+|----|-------------------------------------------------------------------------------------------------|------------|------------------|--------------|
+|  1 | [pyicloud](https://github.com/picklepete/pyicloud)                                              | 2020-11-08 | Python           | 2020-12-29   |
+|  2 | [JavaGuide](https://github.com/Snailclimb/JavaGuide)                                            | 2019-01-02 | Java             | 2020-12-29   |
+|  3 | [my_blog](https://github.com/sanyuan0704/my_blog)                                               | 2020-02-12 | JavaScript       | 2020-12-29   |
+|  4 | [ktv-select_music-system](https://github.com/Peachick/ktv-select_music-system)                  | 2019-10-23 | Vue              | 2020-12-24   |
+|  5 | [zenghongtu.github.io](https://github.com/zenghongtu/zenghongtu.github.io)                      | 2019-06-17 | HTML             | 2020-07-25   |
+|  6 | [XSS-Filter-Evasion-Cheat-Sheet-CN](https://github.com/l3m0n/XSS-Filter-Evasion-Cheat-Sheet-CN) | 2019-05-21 | md               | 2020-11-30   |
+|  7 | [python-dcdownloader](https://github.com/dev-techmoe/python-dcdownloader)                       | 2018-03-20 | Python           | 2020-12-29   |
+|  8 | [deep-speaker](https://github.com/philipperemy/deep-speaker)                                    | 2019-02-13 | Python           | 2020-12-29   |
+|  9 | [underscore-analysis](https://github.com/lessfish/underscore-analysis)                          | 2019-11-27 | JavaScript       | 2020-12-26   |
+| 10 | [pylab](https://github.com/howie6879/pylab)                                                     | 2019-03-25 | Jupyter Notebook | 2020-11-18   |
 
 <!--END_SECTION:my_github-->
