@@ -285,6 +285,10 @@ func makeContributedString(myPRs []myPrInfo) string {
 func makeStaredString(myStars []myStaredInfo, starNumber int) string {
 	myStaredTitle := fmt.Sprintf("## The repos I stared (random %s)", strconv.Itoa(starNumber)) + "\n"
 	starsData := [][]string{}
+	// maybe a better way in golang?
+	if (len(myStars)) < starNumber {
+		starNumber = len(myStars)
+	}
 	for i, star := range myStars[:starNumber] {
 		repo := star.myRepoInfo
 		starsData = append(starsData, []string{strconv.Itoa(i + 1), repo.mdName(), star.staredDate, repo.lauguage, repo.update})
