@@ -5,7 +5,7 @@
 ## The repos I created
 | ID |                                    REPO                                    |   START    |   UPDATE   |  LAUGUAGE  | STARS |
 |----|----------------------------------------------------------------------------|------------|------------|------------|-------|
-|  1 | [running_page](https://github.com/yihong0618/running_page)                 | 2020-09-17 | 2020-12-29 | Python     |   951 |
+|  1 | [running_page](https://github.com/yihong0618/running_page)                 | 2020-09-17 | 2020-12-29 | Python     |   952 |
 |  2 | [2020](https://github.com/yihong0618/2020)                                 | 2020-01-10 | 2020-12-29 | C          |    97 |
 |  3 | [gaycore](https://github.com/yihong0618/gaycore)                           | 2019-02-18 | 2020-12-10 | Python     |    89 |
 |  4 | [gitblog](https://github.com/yihong0618/gitblog)                           | 2019-07-18 | 2020-12-24 | Python     |    77 |
@@ -32,31 +32,31 @@
 |  2 | [leetcode-cli](https://github.com/leetcode-tools/leetcode-cli)            | 2019-11-29 | 2020-08-21 |       8 |
 |  3 | [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode) | 2019-12-03 | 2020-07-22 |       6 |
 |  4 | [nrc-exporter](https://github.com/yasoob/nrc-exporter)                    | 2020-07-05 | 2020-10-07 |       5 |
-|  5 | [kb](https://github.com/gnebbia/kb)                                       | 2020-09-21 | 2020-09-23 |       3 |
-|  6 | [awesome-cn-cafe](https://github.com/ElaWorkshop/awesome-cn-cafe)         | 2020-08-04 | 2020-08-10 |       3 |
+|  5 | [awesome-cn-cafe](https://github.com/ElaWorkshop/awesome-cn-cafe)         | 2020-08-04 | 2020-08-10 |       3 |
+|  6 | [kb](https://github.com/gnebbia/kb)                                       | 2020-09-21 | 2020-09-23 |       3 |
 |  7 | [activities](https://github.com/flopp/activities)                         | 2020-07-09 | 2020-07-14 |       2 |
 |  8 | [iredis](https://github.com/laixintao/iredis)                             | 2019-12-30 | 2020-09-16 |       2 |
-|  9 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
-| 10 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
-| 11 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
-| 12 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
+|  9 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
+| 10 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
+| 11 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
+| 12 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
 | 13 | [py-staticmaps](https://github.com/flopp/py-staticmaps)                   | 2020-09-20 | 2020-09-20 |       1 |
-| 14 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
-| 15 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
-| 16 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
+| 14 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
+| 15 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
+| 16 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
 
 ## The repos I stared (random 10)
-| ID |                                        REPO                                        | STAREDDATE |  LAUGUAGE  | LATESTUPDATE |
-|----|------------------------------------------------------------------------------------|------------|------------|--------------|
-|  1 | [one-python-craftsman](https://github.com/piglei/one-python-craftsman)             | 2019-06-03 | md         | 2020-12-29   |
-|  2 | [github-readme-stats](https://github.com/anuraghazra/github-readme-stats)          | 2020-07-16 | JavaScript | 2020-12-29   |
-|  3 | [fuzzDicts](https://github.com/TheKingOfDuck/fuzzDicts)                            | 2020-04-23 | Python     | 2020-12-29   |
-|  4 | [ubuntu-cheatsheet](https://github.com/JREAM/ubuntu-cheatsheet)                    | 2020-05-28 | HTML       | 2020-12-20   |
-|  5 | [hands-on-ml-zh](https://github.com/apachecn/hands-on-ml-zh)                       | 2019-03-25 | CSS        | 2020-12-28   |
-|  6 | [GSIL](https://github.com/FeeiCN/GSIL)                                             | 2018-09-25 | Python     | 2020-12-28   |
-|  7 | [dash](https://github.com/plotly/dash)                                             | 2017-06-22 | Python     | 2020-12-29   |
-|  8 | [tornado-websocket-example](https://github.com/hiroakis/tornado-websocket-example) | 2018-11-28 | HTML       | 2020-09-21   |
-|  9 | [conference](https://github.com/gopherchina/conference)                            | 2017-12-05 | md         | 2020-12-29   |
-| 10 | [fast-astar](https://github.com/sbfkcel/fast-astar)                                | 2019-12-23 | JavaScript | 2020-12-29   |
+| ID |                                           REPO                                           | STAREDDATE | LAUGUAGE | LATESTUPDATE |
+|----|------------------------------------------------------------------------------------------|------------|----------|--------------|
+|  1 | [mkdocs](https://github.com/mkdocs/mkdocs)                                               | 2019-09-19 | Python   | 2020-12-29   |
+|  2 | [write-a-hash-table](https://github.com/jamesroutley/write-a-hash-table)                 | 2020-10-28 | md       | 2020-12-29   |
+|  3 | [go101](https://github.com/go101/go101)                                                  | 2019-05-17 | HTML     | 2020-12-29   |
+|  4 | [FASPell](https://github.com/iqiyi/FASPell)                                              | 2019-11-19 | Python   | 2020-12-27   |
+|  5 | [pyhttptest](https://github.com/slaily/pyhttptest)                                       | 2019-12-23 | Python   | 2020-12-03   |
+|  6 | [threes-ai](https://github.com/halfrost/threes-ai)                                       | 2018-06-07 | Go       | 2020-12-20   |
+|  7 | [UniLua](https://github.com/xebecnan/UniLua)                                             | 2020-04-27 | C#       | 2020-12-09   |
+|  8 | [daily_algorithms](https://github.com/shidenggui/daily_algorithms)                       | 2019-11-05 | C        | 2020-12-05   |
+|  9 | [advanced-go-programming-book](https://github.com/chai2010/advanced-go-programming-book) | 2019-07-13 | Go       | 2020-12-29   |
+| 10 | [boltons](https://github.com/mahmoud/boltons)                                            | 2018-10-11 | Python   | 2020-12-28   |
 
 <!--END_SECTION:my_github-->
