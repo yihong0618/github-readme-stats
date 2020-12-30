@@ -11,10 +11,10 @@
 |  4 | [gitblog](https://github.com/yihong0618/gitblog)                           | 2019-07-18 | 2020-12-29 | Python     |    77 |
 |  5 | [vscode-gcores](https://github.com/yihong0618/vscode-gcores)               | 2020-01-04 | 2020-11-18 | TypeScript |    47 |
 |  6 | [shanbay_remember](https://github.com/yihong0618/shanbay_remember)         | 2020-12-02 | 2020-12-28 | JavaScript |    27 |
-|  7 | [gcores_calendar](https://github.com/yihong0618/gcores_calendar)           | 2020-08-24 | 2020-12-29 | JavaScript |    19 |
+|  7 | [gcores_calendar](https://github.com/yihong0618/gcores_calendar)           | 2020-08-24 | 2020-12-30 | JavaScript |    19 |
 |  8 | [blog](https://github.com/yihong0618/blog)                                 | 2020-06-22 | 2020-12-27 | JavaScript |     9 |
-|  9 | [Runtastic](https://github.com/yihong0618/Runtastic)                       | 2020-07-24 | 2020-11-16 | Python     |     7 |
-| 10 | [my_github](https://github.com/yihong0618/my_github)                       | 2020-12-24 | 2020-12-29 | Go         |     7 |
+|  9 | [my_github](https://github.com/yihong0618/my_github)                       | 2020-12-24 | 2020-12-30 | Go         |     8 |
+| 10 | [Runtastic](https://github.com/yihong0618/Runtastic)                       | 2020-07-24 | 2020-11-16 | Python     |     7 |
 | 11 | [Python365](https://github.com/yihong0618/Python365)                       | 2019-09-05 | 2020-10-27 | Python     |     3 |
 | 12 | [yihong0618](https://github.com/yihong0618/yihong0618)                     | 2020-07-16 | 2020-12-11 | md         |     1 |
 | 13 | [edocteel001](https://github.com/yihong0618/edocteel001)                   | 2019-11-12 | 2020-05-18 | JavaScript |     1 |
@@ -34,29 +34,29 @@
 |  4 | [nrc-exporter](https://github.com/yasoob/nrc-exporter)                    | 2020-07-05 | 2020-10-07 |       5 |
 |  5 | [awesome-cn-cafe](https://github.com/ElaWorkshop/awesome-cn-cafe)         | 2020-08-04 | 2020-08-10 |       3 |
 |  6 | [kb](https://github.com/gnebbia/kb)                                       | 2020-09-21 | 2020-09-23 |       3 |
-|  7 | [activities](https://github.com/flopp/activities)                         | 2020-07-09 | 2020-07-14 |       2 |
-|  8 | [iredis](https://github.com/laixintao/iredis)                             | 2019-12-30 | 2020-09-16 |       2 |
-|  9 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
+|  7 | [iredis](https://github.com/laixintao/iredis)                             | 2019-12-30 | 2020-09-16 |       2 |
+|  8 | [activities](https://github.com/flopp/activities)                         | 2020-07-09 | 2020-07-14 |       2 |
+|  9 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
 | 10 | [py-staticmaps](https://github.com/flopp/py-staticmaps)                   | 2020-09-20 | 2020-09-20 |       1 |
-| 11 | [GadioVideo](https://github.com/rabbitism/GadioVideo)                     | 2019-09-25 | 2019-09-25 |       1 |
-| 12 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
-| 13 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
-| 14 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
+| 11 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
+| 12 | [highlight](https://github.com/wenyan-lang/highlight)                     | 2020-09-08 | 2020-09-08 |       1 |
+| 13 | [build-your-own-vue](https://github.com/jackiewillen/build-your-own-vue)  | 2020-01-16 | 2020-01-16 |       1 |
+| 14 | [help-to-be-helped](https://github.com/xiaolai/help-to-be-helped)         | 2020-02-04 | 2020-02-04 |       1 |
 | 15 | [awesome-cn-cafe-web](https://github.com/antfu/awesome-cn-cafe-web)       | 2020-08-18 | 2020-08-18 |       1 |
-| 16 | [LearnJapan](https://github.com/wizicer/LearnJapan)                       | 2020-03-31 | 2020-03-31 |       1 |
+| 16 | [TopList](https://github.com/tophubs/TopList)                             | 2019-08-19 | 2019-08-19 |       1 |
 
 ## The repos I stared (random 10)
-| ID |                                           REPO                                            | STAREDDATE |  LAUGUAGE  | LATESTUPDATE |
-|----|-------------------------------------------------------------------------------------------|------------|------------|--------------|
-|  1 | [the-book-of-secret-knowledge](https://github.com/trimstray/the-book-of-secret-knowledge) | 2019-08-13 | md         | 2020-12-29   |
-|  2 | [awesome-resume-for-chinese](https://github.com/dyweb/awesome-resume-for-chinese)         | 2020-06-26 | md         | 2020-12-28   |
-|  3 | [blog](https://github.com/gwuhaolin/blog)                                                 | 2018-02-05 | HTML       | 2020-12-29   |
-|  4 | [chrome-extension-book](https://github.com/icepy/chrome-extension-book)                   | 2019-06-02 | JavaScript | 2020-12-24   |
-|  5 | [springboot-penguin](https://github.com/gdufeZLYL/springboot-penguin)                     | 2019-08-05 | HTML       | 2020-12-29   |
-|  6 | [gitGraber](https://github.com/hisxo/gitGraber)                                           | 2020-07-15 | Python     | 2020-12-28   |
-|  7 | [parker](https://github.com/LiuRoy/parker)                                                | 2017-05-27 | Python     | 2020-11-10   |
-|  8 | [GSIL](https://github.com/FeeiCN/GSIL)                                                    | 2018-09-25 | Python     | 2020-12-28   |
-|  9 | [Guttenberg-Search](https://github.com/triestpa/Guttenberg-Search)                        | 2019-07-30 | JavaScript | 2020-12-22   |
-| 10 | [blog](https://github.com/a327ex/blog)                                                    | 2020-07-08 | md         | 2020-12-27   |
+| ID |                                        REPO                                         | STAREDDATE |     LAUGUAGE     | LATESTUPDATE |
+|----|-------------------------------------------------------------------------------------|------------|------------------|--------------|
+|  1 | [tile38](https://github.com/tidwall/tile38)                                         | 2020-07-07 | Go               | 2020-12-29   |
+|  2 | [pync](https://github.com/SeTeM/pync)                                               | 2019-01-22 | Python           | 2020-12-03   |
+|  3 | [im](https://github.com/waylybaye/im)                                               | 2020-08-14 | C++              | 2020-08-23   |
+|  4 | [vscode-database](https://github.com/Bajdzis/vscode-database)                       | 2020-01-15 | TypeScript       | 2020-12-17   |
+|  5 | [Virgilio](https://github.com/virgili0/Virgilio)                                    | 2019-03-21 | Jupyter Notebook | 2020-12-30   |
+|  6 | [Gitter](https://github.com/kokohuang/Gitter)                                       | 2019-06-25 | JavaScript       | 2020-12-28   |
+|  7 | [aoc2020](https://github.com/flopp/aoc2020)                                         | 2020-12-02 | Python           | 2020-12-24   |
+|  8 | [c9-python-getting-started](https://github.com/microsoft/c9-python-getting-started) | 2019-09-23 | Jupyter Notebook | 2020-12-29   |
+|  9 | [youtube](https://github.com/engineer-man/youtube)                                  | 2019-01-24 | Python           | 2020-12-29   |
+| 10 | [LearnJapan](https://github.com/wizicer/LearnJapan)                                 | 2019-08-01 | TypeScript       | 2020-12-28   |
 
 <!--END_SECTION:my_github-->
