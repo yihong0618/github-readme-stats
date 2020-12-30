@@ -60,9 +60,17 @@ type myPrInfo struct {
 }
 
 func (p *myPrInfo) mdName() string {
+	return "[" + p.name + "]" + "(" + p.repoLink() + ")"
+}
+
+func (p *myPrInfo) repoLink() string {
 	q := strings.Split(p.repoURL, "/")
-	// md format
-	return "[" + p.name + "]" + "(" + baseURL + q[len(q)-2] + "/" + q[len(q)-1] + ")"
+	return baseURL + q[len(q)-2] + "/" + q[len(q)-1]
+}
+
+func getAllPrLinks(p myPrInfo) string {
+	url := fmt.Sprintf("%s/pulls?q=is:pr+author:%s", p.repoLink(), githubUserName)
+	return "https://" + strings.ReplaceAll(strings.Split(url, "https://")[1], ":", "%3A")
 }
 
 type myStaredInfo struct {
@@ -85,6 +93,7 @@ func fetchAllCreatedRepos(username string, client *github.Client) []*github.Repo
 		repos, resp, err := client.Repositories.List(context.Background(), username, opt)
 		if err != nil {
 			fmt.Println("Something wrong to get repos")
+			continue
 		}
 		allRepos = append(allRepos, repos...)
 		if resp.NextPage == 0 {
@@ -132,6 +141,7 @@ func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
 		result, _, err := client.Search.Issues(context.Background(), fmt.Sprintf("is:pr author:%s is:closed is:merged", username), opt)
 		if err != nil {
 			fmt.Println(err)
+			continue
 		}
 		allIssues = append(allIssues, result.Issues...)
 		if nowPage >= result.GetTotal() {
@@ -276,7 +286,8 @@ func makeCreatedString(repos []myRepoInfo) string {
 func makeContributedString(myPRs []myPrInfo) string {
 	prsData := [][]string{}
 	for i, pr := range myPRs {
-		prsData = append(prsData, []string{strconv.Itoa(i + 1), pr.mdName(), pr.fisrstDate, pr.lasteDate, strconv.Itoa(pr.prCount)})
+		prsData = append(prsData, []string{strconv.Itoa(i + 1), pr.mdName(), pr.fisrstDate, pr.lasteDate, fmt.Sprintf("[%d](%s)", pr.prCount, getAllPrLinks(pr))})
+
 	}
 	myPrString := makeMdTable(prsData, []string{"ID", "Repo", "firstDate", "lasteDate", "prCount"})
 	return myContributedTitle + myPrString + "\n"
