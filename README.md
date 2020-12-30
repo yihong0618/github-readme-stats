@@ -11,7 +11,7 @@ Add a comment to your `README.md` like this:
 
 - write yml file
 
-[Sample](https://github.com/yihong0618/2021) 
+[Sample](https://github.com/yihong0618/2021)
 
 ```yml
 name: GitHub README STATS

@@ -287,7 +287,6 @@ func makeContributedString(myPRs []myPrInfo) string {
 	prsData := [][]string{}
 	for i, pr := range myPRs {
 		prsData = append(prsData, []string{strconv.Itoa(i + 1), pr.mdName(), pr.fisrstDate, pr.lasteDate, fmt.Sprintf("[%d](%s)", pr.prCount, getAllPrLinks(pr))})
-
 	}
 	myPrString := makeMdTable(prsData, []string{"ID", "Repo", "firstDate", "lasteDate", "prCount"})
 	return myContributedTitle + myPrString + "\n"
