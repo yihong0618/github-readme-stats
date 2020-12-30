@@ -2,11 +2,6 @@ name: Go
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"
-  push:
-    branches:
-      - main
 
 env:
   GITHUB_NAME: yihong0618
@@ -24,12 +19,3 @@ jobs:
         with:
           TELEGRAM_TOKEN: ${{ secrets.TELE_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELE_CHAT_ID }}
-      - name: Push README
-        uses: github-actions-x/commit@v2.6
-        with:
-          github-token: ${{ secrets.G_T }}
-          commit-message: "Refresh README (GITHUB STATUS)"
-          files: README.md
-          rebase: "true"
-          name: ${{ env.GITHUB_NAME }}
-          email: ${{ env.GITHUB_EMAIL }}
