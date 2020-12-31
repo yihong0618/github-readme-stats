@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: My GitHub Status
-        uses: yihong0618/my_github@v1
+        uses: yihong0618/github-readme-stats@v1.1
         with:
           # if you also want to send TELE
           TELEGRAM_TOKEN: ${{ secrets.TELE_TOKEN }}
