@@ -16,8 +16,6 @@ Add a comment to your `README.md` like this:
 ```yml
 name: GitHub README STATS
 
-name: Go
-
 on:
   workflow_dispatch:
   schedule:
@@ -44,7 +42,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELE_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELE_CHAT_ID }}
           STARED_NUMBER: ${{ env.STARED_NUMBER }}
-          
+
       - name: Push README
         uses: github-actions-x/commit@v2.6
         with:
