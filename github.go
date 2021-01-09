@@ -24,6 +24,7 @@ var (
 	telegramID     int64
 	telegramToken  string
 	staredNumber   int
+	withStarrd     bool
 )
 
 var baseURL = "https://github.com/"
@@ -36,6 +37,7 @@ func init() {
 	flag.IntVar(&staredNumber, "stared", 10, "stared number random")
 	flag.StringVar(&telegramToken, "tgtoken", "", "token from telegram")
 	flag.StringVar(&githubUserName, "username", "", "github user name")
+	flag.BoolVar(&withStarrd, "withstared", true, "if with stared repos")
 }
 
 type myRepoInfo struct {
@@ -323,10 +325,12 @@ func main() {
 	sort.Slice(myPRs[:], func(i, j int) bool {
 		return myPRs[j].prCount < myPRs[i].prCount
 	})
-
-	stars := fetchAllStared(githubUserName, client)
-	myStared := makeStaredRepos(stars)
-	myStaredString := makeStaredString(myStared, staredNumber)
+	myStaredString := ""
+	if withStarrd {
+		stars := fetchAllStared(githubUserName, client)
+		myStared := makeStaredRepos(stars)
+		myStaredString = makeStaredString(myStared, staredNumber)
+	}
 
 	if telegramToken != "" {
 		totalMessage := genTgMessage(myRepos, totalCount, longest)
@@ -341,8 +345,12 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	re := regexp.MustCompile(`(<!--START_SECTION:my_github-->\n)[\s\S]*(<!--END_SECTION:my_github-->\n)`)
-	newContent := []byte(re.ReplaceAllString(string(readMeContent), `$1`+myCreatedString+myPrString+myStaredString+`$2`))
+	re := regexp.MustCompile(`(?s)(<!--START_SECTION:my_github-->)(.*)(<!--END_SECTION:my_github-->)`)
+	newContentString := myCreatedString + myPrString
+	if withStarrd {
+		newContentString = newContentString + myStaredString
+	}
+	newContent := []byte(re.ReplaceAllString(string(readMeContent), `$1`+"\n"+newContentString+`$3`))
 	err = ioutil.WriteFile(readMeFile, newContent, 0644)
 	if err != nil {
 		panic(err)

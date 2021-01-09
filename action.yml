@@ -18,6 +18,10 @@ inputs:
     description: "TG chat ID to send message"
     default: 0
     required: false
+  WITH_STARED:
+    description: "If with stared repos"
+    default: true
+    required: false
 
 runs:
   using: "docker"
@@ -31,6 +35,8 @@ runs:
     - ${{ inputs.TELEGRAM_CHAT_ID }}
     - "-tgtoken"
     - ${{ inputs.TELEGRAM_TOKEN }}
+    - "-withstared"
+    - ${{ inputs.WITH_STARED }}
 
 branding:
   icon: github
