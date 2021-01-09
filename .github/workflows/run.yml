@@ -17,5 +17,6 @@ jobs:
       - name: My GitHub Status
         uses: ./
         with:
+          WITH_STARED: false
           TELEGRAM_TOKEN: ${{ secrets.TELE_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELE_CHAT_ID }}
