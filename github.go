@@ -24,7 +24,7 @@ var (
 	telegramID     int64
 	telegramToken  string
 	staredNumber   int
-	withStarrd     bool
+	withStared     bool
 )
 
 var baseURL = "https://github.com/"
@@ -37,7 +37,7 @@ func init() {
 	flag.IntVar(&staredNumber, "stared", 10, "stared number random")
 	flag.StringVar(&telegramToken, "tgtoken", "", "token from telegram")
 	flag.StringVar(&githubUserName, "username", "", "github user name")
-	flag.BoolVar(&withStarrd, "withstared", true, "if with stared repos")
+	flag.BoolVar(&withStared, "withstared", true, "if with stared repos")
 }
 
 type myRepoInfo struct {
@@ -326,7 +326,7 @@ func main() {
 		return myPRs[j].prCount < myPRs[i].prCount
 	})
 	myStaredString := ""
-	if withStarrd {
+	if withStared {
 		stars := fetchAllStared(githubUserName, client)
 		myStared := makeStaredRepos(stars)
 		myStaredString = makeStaredString(myStared, staredNumber)
@@ -347,7 +347,7 @@ func main() {
 	}
 	re := regexp.MustCompile(`(?s)(<!--START_SECTION:my_github-->)(.*)(<!--END_SECTION:my_github-->)`)
 	newContentString := myCreatedString + myPrString
-	if withStarrd {
+	if withStared {
 		newContentString = newContentString + myStaredString
 	}
 	newContent := []byte(re.ReplaceAllString(string(readMeContent), `$1`+"\n"+newContentString+`$3`))
