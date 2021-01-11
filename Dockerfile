@@ -1,4 +1,4 @@
-FROM golang:1.15-alpine
+FROM golang:1.14-alpine
 
 RUN apk add git
 RUN  go get -u github.com/go-telegram-bot-api/telegram-bot-api \

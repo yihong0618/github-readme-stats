@@ -348,7 +348,6 @@ func main() {
 	re := regexp.MustCompile(`(?s)(<!--START_SECTION:my_github-->)(.*)(<!--END_SECTION:my_github-->)`)
 	newContentString := myCreatedString + myPrString
 	if withStared {
-		fmt.Println(withStared, 2222)
 		newContentString = newContentString + myStaredString
 	}
 	newContent := []byte(re.ReplaceAllString(string(readMeContent), `$1`+"\n"+newContentString+`$3`))
