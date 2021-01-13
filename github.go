@@ -136,8 +136,8 @@ func makeCreatedRepos(repos []*github.Repository) ([]myRepoInfo, int, int) {
 }
 
 func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
-	opt := &github.SearchOptions{ListOptions: github.ListOptions{PerPage: 100}}
 	nowPage := 100
+	opt := &github.SearchOptions{ListOptions: github.ListOptions{Page: 1, PerPage: 100}}
 	var allIssues []*github.Issue
 	for {
 		result, _, err := client.Search.Issues(context.Background(), fmt.Sprintf("is:pr author:%s is:closed is:merged", username), opt)
