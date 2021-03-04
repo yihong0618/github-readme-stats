@@ -9,7 +9,7 @@ Add a comment to your `README.md` like this:
 <!--END_SECTION:my_github-->
 ```
 
-- write yml file
+- Write your own `yml` file
 
 [Sample](https://github.com/yihong0618/2021)
 
