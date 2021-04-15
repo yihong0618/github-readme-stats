@@ -54,11 +54,11 @@ func (r *myRepoInfo) mdName() string {
 }
 
 type myPrInfo struct {
-	name       string
-	repoURL    string
-	fisrstDate string
-	lasteDate  string
-	prCount    int
+	name      string
+	repoURL   string
+	firstDate string
+	lasteDate string
+	prCount   int
 }
 
 func (p *myPrInfo) mdName() string {
@@ -155,8 +155,9 @@ func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
 	return allIssues
 }
 
-func makePrRepos(issues []*github.Issue) []myPrInfo {
+func makePrRepos(issues []*github.Issue) ([]myPrInfo, int) {
 	prMap := make(map[string]map[string]interface{})
+	totalCount := 0
 	for _, issue := range issues {
 		if *issue.AuthorAssociation == "OWNER" {
 			continue
@@ -165,30 +166,35 @@ func makePrRepos(issues []*github.Issue) []myPrInfo {
 		if len(prMap[repoName]) == 0 {
 			prMap[repoName] = make(map[string]interface{})
 			prMap[repoName]["prCount"] = 1
-			prMap[repoName]["fisrstDate"] = (*issue.CreatedAt).String()[:10]
+			prMap[repoName]["firstDate"] = (*issue.CreatedAt).String()[:10]
 			prMap[repoName]["lasteDate"] = (*issue.CreatedAt).String()[:10]
 			prMap[repoName]["repoURL"] = *issue.RepositoryURL
+			prMap[repoName]["firstHTML"] = *issue.HTMLURL
+			prMap[repoName]["lastHTML"] = *issue.HTMLURL
 		} else {
 			prMap[repoName]["prCount"] = prMap[repoName]["prCount"].(int) + 1
-			if prMap[repoName]["fisrstDate"].(string) > (*issue.CreatedAt).String()[:10] {
-				prMap[repoName]["fisrstDate"] = (*issue.CreatedAt).String()[:10]
+			if prMap[repoName]["firstDate"].(string) > (*issue.CreatedAt).String()[:10] {
+				prMap[repoName]["firstDate"] = (*issue.CreatedAt).String()[:10]
+				prMap[repoName]["firstHTML"] = *issue.HTMLURL
 			}
 			if prMap[repoName]["lasteDate"].(string) < (*issue.CreatedAt).String()[:10] {
 				prMap[repoName]["lasteDate"] = (*issue.CreatedAt).String()[:10]
+				prMap[repoName]["lastHTML"] = *issue.HTMLURL
 			}
 		}
+		totalCount++
 	}
 	myPrs := []myPrInfo{}
 	for k, v := range prMap {
 		myPrs = append(myPrs, myPrInfo{
-			name:       k,
-			repoURL:    v["repoURL"].(string),
-			fisrstDate: v["fisrstDate"].(string),
-			lasteDate:  v["lasteDate"].(string),
-			prCount:    v["prCount"].(int),
+			name:      k,
+			repoURL:   v["repoURL"].(string),
+			firstDate: "[" + v["firstDate"].(string) + "]" + "(" + v["firstHTML"].(string) + ")", // markdown format -> []()
+			lasteDate: "[" + v["lasteDate"].(string) + "]" + "(" + v["lastHTML"].(string) + ")",  // markdown format -> []()
+			prCount:   v["prCount"].(int),
 		})
 	}
-	return myPrs
+	return myPrs, totalCount
 }
 
 func fetchAllStared(username string, client *github.Client) []*github.StarredRepository {
@@ -276,20 +282,22 @@ func makeMdTable(data [][]string, header []string) string {
 	return tableString.String()
 }
 
-func makeCreatedString(repos []myRepoInfo) string {
+func makeCreatedString(repos []myRepoInfo, total int) string {
 	starsData := [][]string{}
 	for i, repo := range repos {
 		starsData = append(starsData, []string{strconv.Itoa(i + 1), repo.mdName(), repo.create, repo.update, repo.lauguage, strconv.Itoa(repo.star)})
 	}
+	starsData = append(starsData, []string{"sum", "", "", "", "", strconv.Itoa(total)})
 	myStarsString := makeMdTable(starsData, []string{"ID", "Repo", "Start", "Update", "Lauguage", "Stars"})
 	return myCreatedTitle + myStarsString + "\n"
 }
 
-func makeContributedString(myPRs []myPrInfo) string {
+func makeContributedString(myPRs []myPrInfo, total int) string {
 	prsData := [][]string{}
 	for i, pr := range myPRs {
-		prsData = append(prsData, []string{strconv.Itoa(i + 1), pr.mdName(), pr.fisrstDate, pr.lasteDate, fmt.Sprintf("[%d](%s)", pr.prCount, getAllPrLinks(pr))})
+		prsData = append(prsData, []string{strconv.Itoa(i + 1), pr.mdName(), pr.firstDate, pr.lasteDate, fmt.Sprintf("[%d](%s)", pr.prCount, getAllPrLinks(pr))})
 	}
+	prsData = append(prsData, []string{"sum", "", "", "", strconv.Itoa(total)})
 	myPrString := makeMdTable(prsData, []string{"ID", "Repo", "firstDate", "lasteDate", "prCount"})
 	return myContributedTitle + myPrString + "\n"
 }
@@ -313,14 +321,14 @@ func main() {
 	flag.Parse()
 	client := github.NewClient(nil)
 	repos := fetchAllCreatedRepos(githubUserName, client)
-	myRepos, totalCount, longest := makeCreatedRepos(repos)
+	myRepos, totalStarsCount, longest := makeCreatedRepos(repos)
 	// change sort logic here
 	sort.Slice(myRepos[:], func(i, j int) bool {
 		return myRepos[j].star < myRepos[i].star
 	})
 
 	issues := fetchAllPrIssues(githubUserName, client)
-	myPRs := makePrRepos(issues)
+	myPRs, totalPrCount := makePrRepos(issues)
 	// change sort logic here
 	sort.Slice(myPRs[:], func(i, j int) bool {
 		return myPRs[j].prCount < myPRs[i].prCount
@@ -333,12 +341,12 @@ func main() {
 	}
 
 	if telegramToken != "" {
-		totalMessage := genTgMessage(myRepos, totalCount, longest)
+		totalMessage := genTgMessage(myRepos, totalStarsCount, longest)
 		send2Telegram(telegramToken, telegramID, totalMessage)
 	}
 
-	myCreatedString := makeCreatedString(myRepos)
-	myPrString := makeContributedString(myPRs)
+	myCreatedString := makeCreatedString(myRepos, totalStarsCount)
+	myPrString := makeContributedString(myPRs, totalPrCount)
 
 	readMeFile := path.Join(os.Getenv("GITHUB_WORKSPACE"), "README.md")
 	readMeContent, err := ioutil.ReadFile(readMeFile)
