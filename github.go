@@ -151,6 +151,10 @@ func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
 		}
 		opt.Page = opt.Page + 1
 		nowPage = nowPage + 100
+		if nowPage >= 1000 {
+			// api limit
+			break
+		}
 	}
 	return allIssues
 }
