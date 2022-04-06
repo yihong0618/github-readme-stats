@@ -29,7 +29,7 @@ on:
 env:
   GITHUB_NAME: yihong0618
   GITHUB_EMAIL: zouzou0208@gmail.com
-  STARED_NUMBER: 10
+  STARRED_NUM: 10
 
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
           # if you also want to send TELE
           TELEGRAM_TOKEN: ${{ secrets.TELE_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELE_CHAT_ID }}
-          STARED_NUMBER: ${{ env.STARED_NUMBER }}
+          STARRED_NUM: ${{ env.STARRED_NUM }}
 
       - name: Push README
         uses: github-actions-x/commit@v2.6
