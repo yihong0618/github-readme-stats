@@ -15,7 +15,7 @@ import (
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
-	"github.com/google/go-github/github"
+	"github.com/google/go-github/v42/github"
 	"github.com/olekukonko/tablewriter"
 )
 
@@ -25,6 +25,7 @@ var (
 	telegramToken  string
 	staredNumber   int
 	withStared     bool
+	showAllPR      bool
 )
 
 var baseURL = "https://github.com/"
@@ -38,6 +39,7 @@ func init() {
 	flag.StringVar(&telegramToken, "tgtoken", "", "token from telegram")
 	flag.StringVar(&githubUserName, "username", "", "github user name")
 	flag.BoolVar(&withStared, "withstared", true, "if with stared repos")
+	flag.BoolVar(&showAllPR, "showallpr", true, "if you want to show all prs included closed")
 }
 
 type myRepoInfo struct {
@@ -139,8 +141,12 @@ func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
 	nowPage := 100
 	opt := &github.SearchOptions{ListOptions: github.ListOptions{Page: 1, PerPage: 100}}
 	var allIssues []*github.Issue
+    filterContext := fmt.Sprintf("is:pr author:%s is:closed is:merged", username)
+    if showAllPR {
+        filterContext = fmt.Sprintf("is:pr author:%s", username)
+    }
 	for {
-		result, _, err := client.Search.Issues(context.Background(), fmt.Sprintf("is:pr author:%s is:closed is:merged", username), opt)
+		result, _, err := client.Search.Issues(context.Background(), filterContext, opt)
 		if err != nil {
 			fmt.Println(err)
 			continue
