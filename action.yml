@@ -10,6 +10,10 @@ inputs:
     description: "The number of starred repos to be shown"
     default: 10
     required: false
+  REPOS_NUM:
+    description: "The number of personal repos to be shown. 0 means no limit."
+    default: 0
+    required: false
   TELEGRAM_TOKEN:
     description: "Token for telegram bot if needed"
     default: ""
@@ -31,6 +35,8 @@ runs:
     - ${{ inputs.GH_USERNAME }}
     - "-stared"
     - ${{ inputs.STARRED_NUM }}
+    - "-repos"
+    - ${{ inputs.REPOS_NUM }}
     - "-tgid"
     - ${{ inputs.TELEGRAM_CHAT_ID }}
     - "-tgtoken"

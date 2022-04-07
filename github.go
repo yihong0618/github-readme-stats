@@ -24,6 +24,7 @@ var (
 	telegramID     int64
 	telegramToken  string
 	staredNumber   int
+	reposNumber    int
 	withStared     bool
 	showAllPR      bool
 )
@@ -36,6 +37,7 @@ var myContributedTitle = "## The repos I contributed to\n"
 func init() {
 	flag.Int64Var(&telegramID, "tgid", 0, "telegram room id")
 	flag.IntVar(&staredNumber, "stared", 10, "stared number random")
+	flag.IntVar(&reposNumber, "repos", 0, "number of personal repos to show")
 	flag.StringVar(&telegramToken, "tgtoken", "", "token from telegram")
 	flag.StringVar(&githubUserName, "username", "", "github user name")
 	flag.BoolVar(&withStared, "withstared", true, "if with stared repos")
@@ -141,10 +143,10 @@ func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
 	nowPage := 100
 	opt := &github.SearchOptions{ListOptions: github.ListOptions{Page: 1, PerPage: 100}}
 	var allIssues []*github.Issue
-    filterContext := fmt.Sprintf("is:pr author:%s is:closed is:merged", username)
-    if showAllPR {
-        filterContext = fmt.Sprintf("is:pr author:%s", username)
-    }
+	filterContext := fmt.Sprintf("is:pr author:%s is:closed is:merged", username)
+	if showAllPR {
+		filterContext = fmt.Sprintf("is:pr author:%s", username)
+	}
 	for {
 		result, _, err := client.Search.Issues(context.Background(), filterContext, opt)
 		if err != nil {
@@ -292,7 +294,10 @@ func makeMdTable(data [][]string, header []string) string {
 	return tableString.String()
 }
 
-func makeCreatedString(repos []myRepoInfo, total int) string {
+func makeCreatedString(repos []myRepoInfo, total int, reposNumber int) string {
+	if reposNumber > 0 {
+		repos = repos[:reposNumber]
+	}
 	starsData := [][]string{}
 	for i, repo := range repos {
 		starsData = append(starsData, []string{strconv.Itoa(i + 1), repo.mdName(), repo.create, repo.update, repo.lauguage, strconv.Itoa(repo.star)})
@@ -355,7 +360,7 @@ func main() {
 		send2Telegram(telegramToken, telegramID, totalMessage)
 	}
 
-	myCreatedString := makeCreatedString(myRepos, totalStarsCount)
+	myCreatedString := makeCreatedString(myRepos, totalStarsCount, reposNumber)
 	myPrString := makeContributedString(myPRs, totalPrCount)
 
 	readMeFile := path.Join(os.Getenv("GITHUB_WORKSPACE"), "README.md")
