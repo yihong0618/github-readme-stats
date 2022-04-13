@@ -46,18 +46,11 @@ jobs:
           STARRED_NUM: ${{ env.STARRED_NUM }}
 
       - name: Push README
-        uses: github-actions-x/commit@v2.6
-        with:
-          github-token: ${{ secrets.G_T }}
-          # In this example, you can also use the ${{ secrets.GITHUB_TOKEN }} variable 
-          # Permissions for the GITHUB_TOKEN : https://docs.github.com/en/free-pro-team@latest/actions/reference/authentication-in-a-workflow#permissions-for-the-github_token
-        
-          # If you need more precise Token permission control , you can create a personal access token and set it as a secret in your repository .
-          commit-message: "Refresh README (GITHUB STATUS)"
-          files: README.md
-          rebase: "true"
-          name: ${{ env.GITHUB_NAME }}
-          email: ${{ env.GITHUB_EMAIL }}
+        run: |
+          git config --local user.email "${{ env.GITHUB_EMAIL }}"
+          git config --local user.name "${{ env.GITHUB_EMAIL }}"
+          git commit -a -m 'docs: update readme.md'
+          git push
 ```
 
 
