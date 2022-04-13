@@ -49,8 +49,8 @@ jobs:
         run: |
           git config --local user.email "${{ env.GITHUB_EMAIL }}"
           git config --local user.name "${{ env.GITHUB_EMAIL }}"
-          git commit -a -m 'docs: update readme.md'
-          git push
+          git commit -a -m 'docs: update readme.md' || echo "nothing to commit"
+          git push || echo "nothing to push"
 ```
 
 
