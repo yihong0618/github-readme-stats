@@ -17,6 +17,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"github.com/google/go-github/v42/github"
 	"github.com/olekukonko/tablewriter"
+	"golang.org/x/oauth2"
 )
 
 var (
@@ -62,6 +63,7 @@ type myPrInfo struct {
 	repoURL   string
 	firstDate string
 	lasteDate string
+	language  string
 	prCount   int
 }
 
@@ -85,9 +87,9 @@ type myStaredInfo struct {
 	myRepoInfo
 }
 
-func getRepoName(RepositoryURL string) string {
+func getRepoNameAndOwner(RepositoryURL string) (string, string) {
 	q := strings.Split(RepositoryURL, "/")
-	return q[len(q)-1]
+	return q[len(q)-1], q[len(q)-2]
 }
 
 func fetchAllCreatedRepos(username string, client *github.Client) []*github.Repository {
@@ -167,14 +169,14 @@ func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
 	return allIssues
 }
 
-func makePrRepos(issues []*github.Issue) ([]myPrInfo, int) {
+func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int) {
 	prMap := make(map[string]map[string]interface{})
 	totalCount := 0
 	for _, issue := range issues {
 		if *issue.AuthorAssociation == "OWNER" {
 			continue
 		}
-		repoName := getRepoName(*issue.RepositoryURL)
+		repoName, owner := getRepoNameAndOwner(*issue.RepositoryURL)
 		if len(prMap[repoName]) == 0 {
 			prMap[repoName] = make(map[string]interface{})
 			prMap[repoName]["prCount"] = 1
@@ -183,6 +185,17 @@ func makePrRepos(issues []*github.Issue) ([]myPrInfo, int) {
 			prMap[repoName]["repoURL"] = *issue.RepositoryURL
 			prMap[repoName]["firstHTML"] = *issue.HTMLURL
 			prMap[repoName]["lastHTML"] = *issue.HTMLURL
+			repo, _, err := client.Repositories.Get(context.Background(), owner, repoName)
+			if err != nil {
+				fmt.Println(repoName, "Something wrong to get repo language", err)
+				continue
+			}
+			language := "md"
+			if repo.Language != nil {
+				language = *repo.Language
+			}
+			prMap[repoName]["language"] = language
+			fmt.Println(language)
 		} else {
 			prMap[repoName]["prCount"] = prMap[repoName]["prCount"].(int) + 1
 			if prMap[repoName]["firstDate"].(string) > (*issue.CreatedAt).String()[:10] {
@@ -203,6 +216,7 @@ func makePrRepos(issues []*github.Issue) ([]myPrInfo, int) {
 			repoURL:   v["repoURL"].(string),
 			firstDate: "[" + v["firstDate"].(string) + "]" + "(" + v["firstHTML"].(string) + ")", // markdown format -> []()
 			lasteDate: "[" + v["lasteDate"].(string) + "]" + "(" + v["lastHTML"].(string) + ")",  // markdown format -> []()
+			language:  v["language"].(string),
 			prCount:   v["prCount"].(int),
 		})
 	}
@@ -310,10 +324,10 @@ func makeCreatedString(repos []myRepoInfo, total int, reposNumber int) string {
 func makeContributedString(myPRs []myPrInfo, total int) string {
 	prsData := [][]string{}
 	for i, pr := range myPRs {
-		prsData = append(prsData, []string{strconv.Itoa(i + 1), pr.mdName(), pr.firstDate, pr.lasteDate, fmt.Sprintf("[%d](%s)", pr.prCount, getAllPrLinks(pr))})
+		prsData = append(prsData, []string{strconv.Itoa(i + 1), pr.mdName(), pr.firstDate, pr.lasteDate, pr.language, fmt.Sprintf("[%d](%s)", pr.prCount, getAllPrLinks(pr))})
 	}
-	prsData = append(prsData, []string{"sum", "", "", "", strconv.Itoa(total)})
-	myPrString := makeMdTable(prsData, []string{"ID", "Repo", "firstDate", "lasteDate", "prCount"})
+	prsData = append(prsData, []string{"sum", "", "", "", "", strconv.Itoa(total)})
+	myPrString := makeMdTable(prsData, []string{"ID", "Repo", "firstDate", "lasteDate", "Language", "prCount"})
 	return myContributedTitle + myPrString + "\n"
 }
 
@@ -335,6 +349,12 @@ func makeStaredString(myStars []myStaredInfo, starNumber int) string {
 func main() {
 	flag.Parse()
 	client := github.NewClient(nil)
+	if tok := os.Getenv("GITHUB_TOKEN"); tok != "" {
+		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: tok})
+		ctx := context.Background()
+		tc := oauth2.NewClient(ctx, ts)
+		client = github.NewClient(tc)
+	}
 	repos := fetchAllCreatedRepos(githubUserName, client)
 	myRepos, totalStarsCount, longest := makeCreatedRepos(repos)
 	// change sort logic here
@@ -343,7 +363,7 @@ func main() {
 	})
 
 	issues := fetchAllPrIssues(githubUserName, client)
-	myPRs, totalPrCount := makePrRepos(issues)
+	myPRs, totalPrCount := makePrRepos(issues, client)
 	// change sort logic here
 	sort.Slice(myPRs[:], func(i, j int) bool {
 		return myPRs[j].prCount < myPRs[i].prCount
