@@ -195,7 +195,6 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 				language = *repo.Language
 			}
 			prMap[repoName]["language"] = language
-			fmt.Println(language)
 		} else {
 			prMap[repoName]["prCount"] = prMap[repoName]["prCount"].(int) + 1
 			if prMap[repoName]["firstDate"].(string) > (*issue.CreatedAt).String()[:10] {
@@ -349,7 +348,7 @@ func makeStaredString(myStars []myStaredInfo, starNumber int) string {
 func main() {
 	flag.Parse()
 	client := github.NewClient(nil)
-	if tok := os.Getenv("GITHUB_TOKEN"); tok != "" {
+	if tok := os.Getenv("GH_TOKEN"); tok != "" {
 		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: tok})
 		ctx := context.Background()
 		tc := oauth2.NewClient(ctx, ts)
