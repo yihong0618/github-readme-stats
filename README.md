@@ -40,6 +40,8 @@ jobs:
       - name: My GitHub Status
         uses: yihong0618/github-readme-stats@main
         with:
+          # we need set GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # if you also want to send TELE
           TELEGRAM_TOKEN: ${{ secrets.TELE_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELE_CHAT_ID }}
