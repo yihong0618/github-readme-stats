@@ -28,7 +28,7 @@ inputs:
     required: false
   GITHUB_TOKEN:
     description: "Token for github if needed"
-    default: ""
+    default: ${{ secrets.GITHUB_TOKEN }}
     required: false
 
 runs:
