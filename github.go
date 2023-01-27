@@ -350,7 +350,6 @@ func makeStaredString(myStars []myStaredInfo, starNumber int) string {
 func main() {
 	flag.Parse()
 	client := github.NewClient(nil)
-	fmt.Println(githubUserName, githubToken)
 	if githubToken != "" {
 		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: githubToken})
 		ctx := context.Background()
