@@ -355,9 +355,7 @@ func main() {
 		ctx := context.Background()
 		tc := oauth2.NewClient(ctx, ts)
 		client = github.NewClient(tc)
-		fmt.Println("hhhhhhhh")
 	}
-	fmt.Println("dsjkadjkas")
 	repos := fetchAllCreatedRepos(githubUserName, client)
 	myRepos, totalStarsCount, longest := makeCreatedRepos(repos)
 	// change sort logic here
