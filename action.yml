@@ -28,8 +28,8 @@ inputs:
     required: false
   GH_TOKEN:
     description: "Token for github if needed"
-    default: "122"
-    required: false
+    default: ""
+    requiredu: true
 
 runs:
   using: "docker"
