@@ -28,6 +28,7 @@ var (
 	reposNumber    int
 	withStared     bool
 	showAllPR      bool
+	githubToken    string
 )
 
 var baseURL = "https://github.com/"
@@ -43,6 +44,7 @@ func init() {
 	flag.StringVar(&githubUserName, "username", "", "github user name")
 	flag.BoolVar(&withStared, "withstared", true, "if with stared repos")
 	flag.BoolVar(&showAllPR, "showallpr", true, "if you want to show all prs included closed")
+	flag.StringVar(&githubToken, "ghtoken", "", "token from github")
 }
 
 type myRepoInfo struct {
@@ -348,8 +350,8 @@ func makeStaredString(myStars []myStaredInfo, starNumber int) string {
 func main() {
 	flag.Parse()
 	client := github.NewClient(nil)
-	if tok := os.Getenv("GITHUB_TOKEN"); tok != "" {
-		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: tok})
+    if githubToken != "" {
+        ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: githubToken})
 		ctx := context.Background()
 		tc := oauth2.NewClient(ctx, ts)
 		client = github.NewClient(tc)

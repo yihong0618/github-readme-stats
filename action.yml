@@ -26,6 +26,10 @@ inputs:
     description: "If with stared repos"
     default: true
     required: false
+  GITHUB_TOKEN:
+    description: "Token for github if needed"
+    default: ""
+    required: false
 
 runs:
   using: "docker"
@@ -43,6 +47,8 @@ runs:
     - ${{ inputs.TELEGRAM_TOKEN }}
     - "-withstared"
     - ${{ inputs.WITH_STARED }}
+    - "-ghtoken"
+    - ${{ inputs.GITHUB_TOKEN }}
 
 branding:
   icon: github
