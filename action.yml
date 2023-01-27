@@ -39,6 +39,8 @@ runs:
     - ${{ inputs.GH_USERNAME }}
     - "-stared"
     - ${{ inputs.STARRED_NUM }}
+    - "-ghtoken"
+    - ${{ inputs.GH_TOKEN }}
     - "-repos"
     - ${{ inputs.REPOS_NUM }}
     - "-tgid"
@@ -47,8 +49,6 @@ runs:
     - ${{ inputs.TELEGRAM_TOKEN }}
     - "-withstared"
     - ${{ inputs.WITH_STARED }}
-    - "-ghtoken"
-    - ${{ inputs.GH_TOKEN }}
 
 branding:
   icon: github
