@@ -26,9 +26,9 @@ inputs:
     description: "If with stared repos"
     default: true
     required: false
-  GITHUB_TOKEN:
+  GH_TOKEN:
     description: "Token for github if needed"
-    default: ${{ secrets.GITHUB_TOKEN }}
+    default: ""
     required: false
 
 runs:
@@ -48,7 +48,7 @@ runs:
     - "-withstared"
     - ${{ inputs.WITH_STARED }}
     - "-ghtoken"
-    - ${{ inputs.GITHUB_TOKEN }}
+    - ${{ inputs.GH_TOKEN }}
 
 branding:
   icon: github
