@@ -28,7 +28,7 @@ inputs:
     required: false
   GH_TOKEN:
     description: "Token for github if needed"
-    default: ""
+    default: "122"
     required: false
 
 runs:
