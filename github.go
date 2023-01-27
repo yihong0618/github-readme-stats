@@ -42,9 +42,9 @@ func init() {
 	flag.IntVar(&reposNumber, "repos", 0, "number of personal repos to show")
 	flag.StringVar(&telegramToken, "tgtoken", "", "token from telegram")
 	flag.StringVar(&githubUserName, "username", "", "github user name")
+	flag.StringVar(&githubToken, "ghtoken", "", "token from github")
 	flag.BoolVar(&withStared, "withstared", true, "if with stared repos")
 	flag.BoolVar(&showAllPR, "showallpr", true, "if you want to show all prs included closed")
-	flag.StringVar(&githubToken, "ghtoken", "", "token from github")
 }
 
 type myRepoInfo struct {
@@ -350,14 +350,15 @@ func makeStaredString(myStars []myStaredInfo, starNumber int) string {
 func main() {
 	flag.Parse()
 	client := github.NewClient(nil)
-    if githubToken != "" {
-        ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: githubToken})
+	fmt.Println(githubUserName, githubToken)
+	if githubToken != "" {
+		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: githubToken})
 		ctx := context.Background()
 		tc := oauth2.NewClient(ctx, ts)
 		client = github.NewClient(tc)
-        fmt.Println("hhhhhhhh")
+		fmt.Println("hhhhhhhh")
 	}
-    fmt.Println("dsjkadjkas")
+	fmt.Println("dsjkadjkas")
 	repos := fetchAllCreatedRepos(githubUserName, client)
 	myRepos, totalStarsCount, longest := makeCreatedRepos(repos)
 	// change sort logic here
