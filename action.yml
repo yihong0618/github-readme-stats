@@ -41,14 +41,14 @@ runs:
     - ${{ inputs.STARRED_NUM }}
     - "-ghtoken"
     - ${{ inputs.GH_TOKEN }}
+    - "-withstared"
+    - ${{ inputs.WITH_STARED }}
     - "-repos"
     - ${{ inputs.REPOS_NUM }}
     - "-tgid"
     - ${{ inputs.TELEGRAM_CHAT_ID }}
     - "-tgtoken"
     - ${{ inputs.TELEGRAM_TOKEN }}
-    - "-withstared"
-    - ${{ inputs.WITH_STARED }}
 
 branding:
   icon: github
