@@ -35,20 +35,13 @@ runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - "-username"
-    - ${{ inputs.GH_USERNAME }}
-    - "-ghtoken"
-    - ${{ inputs.GH_TOKEN }}
-    - "-withstared"
-    - =${{ inputs.WITH_STARED }}
-    - "-stared"
-    - ${{ inputs.STARRED_NUM }}
-    - "-repos"
-    - ${{ inputs.REPOS_NUM }}
-    - "-tgid"
-    - ${{ inputs.TELEGRAM_CHAT_ID }}
-    - "-tgtoken"
-    - ${{ inputs.TELEGRAM_TOKEN }}
+    - "-username"=${{ inputs.GH_USERNAME }}
+    - "-ghtoken"=${{ inputs.GH_TOKEN }}
+    - "-withstared"=${{ inputs.WITH_STARED }}
+    - "-stared"=${{ inputs.STARRED_NUM }}
+    - "-repos"=${{ inputs.REPOS_NUM }}
+    - "-tgid"=${{ inputs.TELEGRAM_CHAT_ID }}
+    - "-tgtoken"=${{ inputs.TELEGRAM_TOKEN }}
 
 branding:
   icon: github
