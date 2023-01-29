@@ -37,12 +37,12 @@ runs:
   args:
     - "-username"
     - ${{ inputs.GH_USERNAME }}
-    - "-stared"
-    - ${{ inputs.STARRED_NUM }}
     - "-ghtoken"
     - ${{ inputs.GH_TOKEN }}
     - "-withstared"
     - ${{ inputs.WITH_STARED }}
+    - "-stared"
+    - ${{ inputs.STARRED_NUM }}
     - "-repos"
     - ${{ inputs.REPOS_NUM }}
     - "-tgid"
