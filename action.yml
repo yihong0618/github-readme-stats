@@ -1,43 +1,48 @@
----
-name: My GitHub Status
-icon: calendar
-description: Generate my github status using GitHub Actions
+name: "My GitHub Status"
+icon: "calendar"
+description: "Generate my github status using GitHub Actions"
 inputs:
   GH_USERNAME:
-    description: Your GitHub username
+    description: "Your GitHub username"
     default: ${{ github.repository_owner }}
     required: false
   STARRED_NUM:
-    description: The number of starred repos to be shown
+    description: "The number of starred repos to be shown"
     default: 10
     required: false
   REPOS_NUM:
-    description: The number of personal repos to be shown. 0 means no limit.
+    description: "The number of personal repos to be shown. 0 means no limit."
     default: 0
     required: false
   TELEGRAM_TOKEN:
-    description: Token for telegram bot if needed
+    description: "Token for telegram bot if needed"
     default: ""
     required: false
   TELEGRAM_CHAT_ID:
-    description: TG chat ID to send message
+    description: "TG chat ID to send message"
     default: 0
     required: false
   WITH_STARED:
-    description: If with stared repos
+    description: "If with stared repos"
     default: true
     required: false
   GH_TOKEN:
-    description: Token for github if needed
+    description: "Token for github if needed"
     default: ""
     required: false
+
 runs:
-  using: docker
-  image: Dockerfile
-  args: -"-username"=${{ inputs.GH_USERNAME }} - "-ghtoken"=${{ inputs.GH_TOKEN }}
-    - "-withstared"=${{ inputs.WITH_STARED }} - "-stared"=${{ inputs.STARRED_NUM
-    }} - "-repos"=${{ inputs.REPOS_NUM }} - "-tgid"=${{ inputs.TELEGRAM_CHAT_ID
-    }} - "-tgtoken"=${{ inputs.TELEGRAM_TOKEN }}
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - "-username=${{ inputs.GH_USERNAME }}"
+    - "-ghtoken=${{ inputs.GH_TOKEN }}"
+    - "-withstared=${{ inputs.WITH_STARED }}"
+    - "-stared=${{ inputs.STARRED_NUM }}"
+    - "-repos=${{ inputs.REPOS_NUM }}"
+    - "-tgid=${{ inputs.TELEGRAM_CHAT_ID }}"
+    - "-tgtoken=${{ inputs.TELEGRAM_TOKEN }}"
+
 branding:
   icon: github
   color: gray-dark
