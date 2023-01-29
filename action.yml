@@ -39,7 +39,8 @@ runs:
     - ${{ inputs.GH_USERNAME }}
     - "-ghtoken"
     - ${{ inputs.GH_TOKEN }}
-    - "-withstared"=${{ inputs.WITH_STARED }}
+    - "-withstared"
+    - =${{ inputs.WITH_STARED }}
     - "-stared"
     - ${{ inputs.STARRED_NUM }}
     - "-repos"
