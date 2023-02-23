@@ -175,7 +175,7 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 	prMap := make(map[string]map[string]interface{})
 	totalCount := 0
 	for _, issue := range issues {
-		if *issue.AuthorAssociation == "OWNER" {
+		if *issue.AuthorAssociation == "OWNER" || *issue.Repository.Private == true {
 			continue
 		}
 		repoName, owner := getRepoNameAndOwner(*issue.RepositoryURL)
