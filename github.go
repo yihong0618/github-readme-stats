@@ -175,7 +175,7 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 	prMap := make(map[string]map[string]interface{})
 	totalCount := 0
 	for _, issue := range issues {
-		if *issue.AuthorAssociation == "OWNER" || *issue.Repository.Private == true {
+		if *issue.AuthorAssociation == "OWNER" {
 			continue
 		}
 		repoName, owner := getRepoNameAndOwner(*issue.RepositoryURL)
@@ -190,6 +190,9 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 			repo, _, err := client.Repositories.Get(context.Background(), owner, repoName)
 			if err != nil {
 				fmt.Println(repoName, "Something wrong to get repo language", err)
+				continue
+			}
+			if *repo.Private == true {
 				continue
 			}
 			language := "md"
