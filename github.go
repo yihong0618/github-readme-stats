@@ -102,7 +102,7 @@ func fetchAllCreatedRepos(username string, client *github.Client) []*github.Repo
 	for {
 		repos, resp, err := client.Repositories.List(context.Background(), username, opt)
 		if err != nil {
-			fmt.Println("Something wrong to get repos")
+			fmt.Println("Something wrong to get repos", err)
 			continue
 		}
 		allRepos = append(allRepos, repos...)
@@ -179,6 +179,14 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 			continue
 		}
 		repoName, owner := getRepoNameAndOwner(*issue.RepositoryURL)
+		repo, _, err := client.Repositories.Get(context.Background(), owner, repoName)
+		if err != nil {
+			fmt.Println(repoName, "Something wrong to get repo language", err)
+			continue
+		}
+		if *repo.Private == true {
+			continue
+		}
 		if len(prMap[repoName]) == 0 {
 			prMap[repoName] = make(map[string]interface{})
 			prMap[repoName]["prCount"] = 1
@@ -187,14 +195,6 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 			prMap[repoName]["repoURL"] = *issue.RepositoryURL
 			prMap[repoName]["firstHTML"] = *issue.HTMLURL
 			prMap[repoName]["lastHTML"] = *issue.HTMLURL
-			repo, _, err := client.Repositories.Get(context.Background(), owner, repoName)
-			if err != nil {
-				fmt.Println(repoName, "Something wrong to get repo language", err)
-				continue
-			}
-			if *repo.Private == true {
-				continue
-			}
 			language := "md"
 			if repo.Language != nil {
 				language = *repo.Language
