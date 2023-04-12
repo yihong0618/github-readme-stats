@@ -64,7 +64,7 @@ jobs:
 
 <!--START_SECTION:my_github-->
 ## The repos I created
-| ID  |                                          REPO                                          |   START    |   UPDATE   |  LAUGUAGE  | STARS |
+| ID  |                                          REPO                                          |   START    |   UPDATE   |  LANGUAGE  | STARS |
 |-----|----------------------------------------------------------------------------------------|------------|------------|------------|-------|
 |   1 | [running_page](https://github.com/yihong0618/running_page)                             | 2020-09-17 | 2021-12-09 | Python     |  1501 |
 |   2 | [GitHubPoster](https://github.com/yihong0618/GitHubPoster)                             | 2021-04-21 | 2021-12-09 | Python     |   565 |
@@ -132,7 +132,7 @@ jobs:
 | sum |                                                                                      |                                                                               |                                                                               |                                                                                              73 |
 
 ## The repos I stared (random 10)
-| ID |                                             REPO                                             | STAREDDATE |  LAUGUAGE  | LATESTUPDATE |
+| ID |                                             REPO                                             | STAREDDATE |  LANGUAGE  | LATESTUPDATE |
 |----|----------------------------------------------------------------------------------------------|------------|------------|--------------|
 |  1 | [PaddleGAN](https://github.com/PaddlePaddle/PaddleGAN)                                       | 2021-03-04 | Python     | 2021-12-10   |
 |  2 | [taxi-demo](https://github.com/kevinqqnj/taxi-demo)                                          | 2019-11-07 | Python     | 2019-11-07   |
