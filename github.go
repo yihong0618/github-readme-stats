@@ -53,7 +53,7 @@ type myRepoInfo struct {
 	HTMLURL  string
 	create   string
 	update   string
-	lauguage string
+	language string
 }
 
 func (r *myRepoInfo) mdName() string {
@@ -122,16 +122,16 @@ func makeCreatedRepos(repos []*github.Repository) ([]myRepoInfo, int, int) {
 		if !*repo.Fork {
 			create := (*repo.CreatedAt).String()[:10]
 			update := (*repo.UpdatedAt).String()[:10]
-			lauguage := "md"
+			language := "md"
 			if repo.Language != nil {
-				lauguage = *repo.Language
+				language = *repo.Language
 			}
 			myRepos = append(myRepos, myRepoInfo{
 				star:     *repo.StargazersCount,
 				name:     *repo.Name,
 				create:   create,
 				update:   update,
-				lauguage: lauguage,
+				language: language,
 				HTMLURL:  *repo.HTMLURL,
 			})
 			totalCount = totalCount + *repo.StargazersCount
@@ -250,9 +250,9 @@ func makeStaredRepos(stars []*github.StarredRepository) []myStaredInfo {
 	myStars := []myStaredInfo{}
 	for _, star := range stars {
 		repo := *star.Repository
-		lauguage := "md"
+		language := "md"
 		if repo.Language != nil {
-			lauguage = *repo.Language
+			language = *repo.Language
 		}
 		desc := ""
 		if repo.Description != nil {
@@ -266,7 +266,7 @@ func makeStaredRepos(stars []*github.StarredRepository) []myStaredInfo {
 				name:     *repo.Name,
 				create:   (*repo.CreatedAt).String()[:10],
 				update:   (*repo.UpdatedAt).String()[:10],
-				lauguage: lauguage,
+				language: language,
 				HTMLURL:  *repo.HTMLURL,
 			},
 		})
@@ -318,10 +318,10 @@ func makeCreatedString(repos []myRepoInfo, total int, reposNumber int) string {
 	}
 	starsData := [][]string{}
 	for i, repo := range repos {
-		starsData = append(starsData, []string{strconv.Itoa(i + 1), repo.mdName(), repo.create, repo.update, repo.lauguage, strconv.Itoa(repo.star)})
+		starsData = append(starsData, []string{strconv.Itoa(i + 1), repo.mdName(), repo.create, repo.update, repo.language, strconv.Itoa(repo.star)})
 	}
 	starsData = append(starsData, []string{"sum", "", "", "", "", strconv.Itoa(total)})
-	myStarsString := makeMdTable(starsData, []string{"ID", "Repo", "Start", "Update", "Lauguage", "Stars"})
+	myStarsString := makeMdTable(starsData, []string{"ID", "Repo", "Start", "Update", "Language", "Stars"})
 	return myCreatedTitle + myStarsString + "\n"
 }
 
@@ -344,9 +344,9 @@ func makeStaredString(myStars []myStaredInfo, starNumber int) string {
 	}
 	for i, star := range myStars[:starNumber] {
 		repo := star.myRepoInfo
-		starsData = append(starsData, []string{strconv.Itoa(i + 1), repo.mdName(), star.staredDate, repo.lauguage, repo.update})
+		starsData = append(starsData, []string{strconv.Itoa(i + 1), repo.mdName(), star.staredDate, repo.language, repo.update})
 	}
-	myStaredString := makeMdTable(starsData, []string{"ID", "Repo", "staredDate", "Lauguage", "LatestUpdate"})
+	myStaredString := makeMdTable(starsData, []string{"ID", "Repo", "staredDate", "Language", "LatestUpdate"})
 	return myStaredTitle + myStaredString + "\n"
 }
 
