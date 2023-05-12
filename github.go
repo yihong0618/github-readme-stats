@@ -119,7 +119,9 @@ func makeCreatedRepos(repos []*github.Repository) ([]myRepoInfo, int, int) {
 	longest := 0
 	myRepos := []myRepoInfo{}
 	for _, repo := range repos {
-		if !*repo.Fork {
+
+		// support fork if this fork stars > 5
+		if !*repo.Fork || *repo.StargazersCount >= 5 {
 			create := (*repo.CreatedAt).String()[:10]
 			update := (*repo.UpdatedAt).String()[:10]
 			language := "md"
