@@ -149,9 +149,9 @@ func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
 	nowPage := 100
 	opt := &github.SearchOptions{ListOptions: github.ListOptions{Page: 1, PerPage: 100}}
 	var allIssues []*github.Issue
-	filterContext := fmt.Sprintf("is:pr author:%s is:closed is:merged", username)
+	filterContext := fmt.Sprintf("is:pr author:%s is:closed is:merged -user:%s", username, username)
 	if showAllPR {
-		filterContext = fmt.Sprintf("is:pr author:%s", username)
+		filterContext = fmt.Sprintf("is:pr author:%s -user:%s", username, username)
 	}
 	for {
 		result, _, err := client.Search.Issues(context.Background(), filterContext, opt)
