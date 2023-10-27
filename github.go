@@ -64,7 +64,7 @@ type myPrInfo struct {
 	name      string
 	repoURL   string
 	firstDate string
-	lasteDate string
+	lastDate  string
 	language  string
 	prCount   int
 }
@@ -193,7 +193,7 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 			prMap[repoName] = make(map[string]interface{})
 			prMap[repoName]["prCount"] = 1
 			prMap[repoName]["firstDate"] = (*issue.CreatedAt).String()[:10]
-			prMap[repoName]["lasteDate"] = (*issue.CreatedAt).String()[:10]
+			prMap[repoName]["lastDate"] = (*issue.CreatedAt).String()[:10]
 			prMap[repoName]["repoURL"] = *issue.RepositoryURL
 			prMap[repoName]["firstHTML"] = *issue.HTMLURL
 			prMap[repoName]["lastHTML"] = *issue.HTMLURL
@@ -208,8 +208,8 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 				prMap[repoName]["firstDate"] = (*issue.CreatedAt).String()[:10]
 				prMap[repoName]["firstHTML"] = *issue.HTMLURL
 			}
-			if prMap[repoName]["lasteDate"].(string) < (*issue.CreatedAt).String()[:10] {
-				prMap[repoName]["lasteDate"] = (*issue.CreatedAt).String()[:10]
+			if prMap[repoName]["lastDate"].(string) < (*issue.CreatedAt).String()[:10] {
+				prMap[repoName]["lastDate"] = (*issue.CreatedAt).String()[:10]
 				prMap[repoName]["lastHTML"] = *issue.HTMLURL
 			}
 		}
@@ -221,7 +221,7 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 			name:      k,
 			repoURL:   v["repoURL"].(string),
 			firstDate: "[" + v["firstDate"].(string) + "]" + "(" + v["firstHTML"].(string) + ")", // markdown format -> []()
-			lasteDate: "[" + v["lasteDate"].(string) + "]" + "(" + v["lastHTML"].(string) + ")",  // markdown format -> []()
+			lastDate:  "[" + v["lastDate"].(string) + "]" + "(" + v["lastHTML"].(string) + ")",   // markdown format -> []()
 			language:  v["language"].(string),
 			prCount:   v["prCount"].(int),
 		})
@@ -330,10 +330,10 @@ func makeCreatedString(repos []myRepoInfo, total int, reposNumber int) string {
 func makeContributedString(myPRs []myPrInfo, total int) string {
 	prsData := [][]string{}
 	for i, pr := range myPRs {
-		prsData = append(prsData, []string{strconv.Itoa(i + 1), pr.mdName(), pr.firstDate, pr.lasteDate, pr.language, fmt.Sprintf("[%d](%s)", pr.prCount, getAllPrLinks(pr))})
+		prsData = append(prsData, []string{strconv.Itoa(i + 1), pr.mdName(), pr.firstDate, pr.lastDate, pr.language, fmt.Sprintf("[%d](%s)", pr.prCount, getAllPrLinks(pr))})
 	}
 	prsData = append(prsData, []string{"sum", "", "", "", "", strconv.Itoa(total)})
-	myPrString := makeMdTable(prsData, []string{"ID", "Repo", "firstDate", "lasteDate", "Language", "prCount"})
+	myPrString := makeMdTable(prsData, []string{"ID", "Repo", "firstDate", "lastDate", "Language", "prCount"})
 	return myContributedTitle + myPrString + "\n"
 }
 
