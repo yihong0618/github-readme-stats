@@ -1,9 +1,5 @@
 # Use
 
-## You can also use the [Demo Server](https://github.com/yihong0618/github-readme-stats-server) for test
-
-- Update your README
-
 Add a comment to your `README.md` like this:
 
 ```md
