@@ -12,6 +12,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
@@ -43,7 +44,7 @@ func init() {
 	flag.StringVar(&telegramToken, "tgtoken", "", "token from telegram")
 	flag.StringVar(&githubUserName, "username", "", "github user name")
 	flag.StringVar(&githubToken, "ghtoken", "", "token from github")
-	flag.BoolVar(&withStared, "withstared", true, "if with stared repos")
+	flag.BoolVar(&withStared, "withstared", false, "if with stared repos")
 	flag.BoolVar(&showAllPR, "showallpr", true, "if you want to show all prs included closed")
 }
 
@@ -94,24 +95,117 @@ func getRepoNameAndOwner(RepositoryURL string) (string, string) {
 	return q[len(q)-1], q[len(q)-2]
 }
 
+// 添加新的结构体来存储所有数据
+type AllData struct {
+	repos  []*github.Repository
+	issues []*github.Issue
+	stars  []*github.StarredRepository
+}
+
 func fetchAllCreatedRepos(username string, client *github.Client) []*github.Repository {
 	opt := &github.RepositoryListOptions{
 		ListOptions: github.ListOptions{PerPage: 100},
 	}
 	var allRepos []*github.Repository
-	for {
-		repos, resp, err := client.Repositories.List(context.Background(), username, opt)
-		if err != nil {
-			fmt.Println("Something wrong to get repos", err)
-			continue
-		}
-		allRepos = append(allRepos, repos...)
-		if resp.NextPage == 0 {
-			break
-		}
-		opt.Page = resp.NextPage
+	var mutex sync.Mutex
+	var wg sync.WaitGroup
+
+	repos, resp, err := client.Repositories.List(context.Background(), username, opt)
+	if err != nil {
+		fmt.Println("Something wrong to get repos", err)
+		return nil
 	}
+	allRepos = append(allRepos, repos...)
+
+	totalPages := resp.LastPage
+	for page := 2; page <= totalPages; page++ {
+		wg.Add(1)
+		go func(pageNum int) {
+			defer wg.Done()
+			opt.Page = pageNum
+			repos, _, err := client.Repositories.List(context.Background(), username, opt)
+			if err != nil {
+				fmt.Println("Error fetching page", pageNum, err)
+				return
+			}
+			mutex.Lock()
+			allRepos = append(allRepos, repos...)
+			mutex.Unlock()
+		}(page)
+	}
+	wg.Wait()
 	return allRepos
+}
+
+func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
+	var allIssues []*github.Issue
+	var mutex sync.Mutex
+	var wg sync.WaitGroup
+
+	filterContext := fmt.Sprintf("is:pr author:%s is:closed is:merged -user:%s", username, username)
+	if showAllPR {
+		filterContext = fmt.Sprintf("is:pr author:%s -user:%s", username, username)
+	}
+
+	semaphore := make(chan struct{}, 5)
+
+	for page := 1; page <= 10; page++ {
+		wg.Add(1)
+		go func(pageNum int) {
+			defer wg.Done()
+			semaphore <- struct{}{}
+			defer func() { <-semaphore }()
+
+			opt := &github.SearchOptions{ListOptions: github.ListOptions{Page: pageNum, PerPage: 100}}
+			result, _, err := client.Search.Issues(context.Background(), filterContext, opt)
+			if err != nil {
+				fmt.Println("Error fetching issues page", pageNum, err)
+				return
+			}
+
+			mutex.Lock()
+			allIssues = append(allIssues, result.Issues...)
+			mutex.Unlock()
+		}(page)
+	}
+	wg.Wait()
+	return allIssues
+}
+
+func fetchAllStared(username string, client *github.Client) []*github.StarredRepository {
+	var allStared []*github.StarredRepository
+	var mutex sync.Mutex
+	var wg sync.WaitGroup
+
+	opt := &github.ActivityListStarredOptions{
+		ListOptions: github.ListOptions{Page: 1, PerPage: 100},
+	}
+
+	repos, resp, err := client.Activity.ListStarred(context.Background(), username, opt)
+	if err != nil {
+		fmt.Println("Something wrong to get stared")
+		return nil
+	}
+	allStared = append(allStared, repos...)
+
+	totalPages := resp.LastPage
+	for page := 2; page <= totalPages; page++ {
+		wg.Add(1)
+		go func(pageNum int) {
+			defer wg.Done()
+			opt.Page = pageNum
+			repos, _, err := client.Activity.ListStarred(context.Background(), username, opt)
+			if err != nil {
+				fmt.Println("Error fetching starred page", pageNum, err)
+				return
+			}
+			mutex.Lock()
+			allStared = append(allStared, repos...)
+			mutex.Unlock()
+		}(page)
+	}
+	wg.Wait()
+	return allStared
 }
 
 func makeCreatedRepos(repos []*github.Repository) ([]myRepoInfo, int, int) {
@@ -143,34 +237,6 @@ func makeCreatedRepos(repos []*github.Repository) ([]myRepoInfo, int, int) {
 		}
 	}
 	return myRepos, totalCount, longest
-}
-
-func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
-	nowPage := 100
-	opt := &github.SearchOptions{ListOptions: github.ListOptions{Page: 1, PerPage: 100}}
-	var allIssues []*github.Issue
-	filterContext := fmt.Sprintf("is:pr author:%s is:closed is:merged -user:%s", username, username)
-	if showAllPR {
-		filterContext = fmt.Sprintf("is:pr author:%s -user:%s", username, username)
-	}
-	for {
-		result, _, err := client.Search.Issues(context.Background(), filterContext, opt)
-		if err != nil {
-			fmt.Println(err)
-			continue
-		}
-		allIssues = append(allIssues, result.Issues...)
-		if nowPage >= result.GetTotal() {
-			break
-		}
-		opt.Page = opt.Page + 1
-		nowPage = nowPage + 100
-		if nowPage >= 1000 {
-			// api limit
-			break
-		}
-	}
-	return allIssues
 }
 
 func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int) {
@@ -227,25 +293,6 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 		})
 	}
 	return myPrs, totalCount
-}
-
-func fetchAllStared(username string, client *github.Client) []*github.StarredRepository {
-	opt := &github.ActivityListStarredOptions{
-		ListOptions: github.ListOptions{Page: 1, PerPage: 100},
-	}
-	var allStared []*github.StarredRepository
-	for {
-		repos, resp, err := client.Activity.ListStarred(context.Background(), username, opt)
-		if err != nil {
-			fmt.Println("Something wrong to get stared")
-		}
-		allStared = append(allStared, repos...)
-		if resp.NextPage == 0 {
-			break
-		}
-		opt.Page = resp.NextPage
-	}
-	return allStared
 }
 
 func makeStaredRepos(stars []*github.StarredRepository) []myStaredInfo {
@@ -354,6 +401,10 @@ func makeStaredString(myStars []myStaredInfo, starNumber int) string {
 
 func main() {
 	flag.Parse()
+	start_time := time.Now()
+	defer func() {
+		fmt.Println("Total time: ", time.Since(start_time))
+	}()
 	client := github.NewClient(nil)
 	if githubToken != "" {
 		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: githubToken})
@@ -361,23 +412,42 @@ func main() {
 		tc := oauth2.NewClient(ctx, ts)
 		client = github.NewClient(tc)
 	}
-	repos := fetchAllCreatedRepos(githubUserName, client)
-	myRepos, totalStarsCount, longest := makeCreatedRepos(repos)
-	// change sort logic here
+
+	var wg sync.WaitGroup
+	data := &AllData{}
+
+	wg.Add(3)
+	go func() {
+		defer wg.Done()
+		data.repos = fetchAllCreatedRepos(githubUserName, client)
+	}()
+
+	go func() {
+		defer wg.Done()
+		data.issues = fetchAllPrIssues(githubUserName, client)
+	}()
+
+	go func() {
+		defer wg.Done()
+		if withStared {
+			data.stars = fetchAllStared(githubUserName, client)
+		}
+	}()
+
+	wg.Wait()
+
+	myRepos, totalStarsCount, longest := makeCreatedRepos(data.repos)
 	sort.Slice(myRepos[:], func(i, j int) bool {
 		return myRepos[j].star < myRepos[i].star
 	})
 
-	issues := fetchAllPrIssues(githubUserName, client)
-	myPRs, totalPrCount := makePrRepos(issues, client)
-	// change sort logic here
+	myPRs, totalPrCount := makePrRepos(data.issues, client)
 	sort.Slice(myPRs[:], func(i, j int) bool {
 		return myPRs[j].prCount < myPRs[i].prCount
 	})
 	myStaredString := ""
 	if withStared {
-		stars := fetchAllStared(githubUserName, client)
-		myStared := makeStaredRepos(stars)
+		myStared := makeStaredRepos(data.stars)
 		myStaredString = makeStaredString(myStared, staredNumber)
 	}
 
