@@ -44,7 +44,7 @@ func init() {
 	flag.StringVar(&telegramToken, "tgtoken", "", "token from telegram")
 	flag.StringVar(&githubUserName, "username", "", "github user name")
 	flag.StringVar(&githubToken, "ghtoken", "", "token from github")
-	flag.BoolVar(&withStared, "withstared", false, "if with stared repos")
+	flag.BoolVar(&withStared, "withstared", true, "if with stared repos")
 	flag.BoolVar(&showAllPR, "showallpr", true, "if you want to show all prs included closed")
 }
 
@@ -173,39 +173,16 @@ func fetchAllPrIssues(username string, client *github.Client) []*github.Issue {
 }
 
 func fetchAllStared(username string, client *github.Client) []*github.StarredRepository {
-	var allStared []*github.StarredRepository
-	var mutex sync.Mutex
-	var wg sync.WaitGroup
-
 	opt := &github.ActivityListStarredOptions{
 		ListOptions: github.ListOptions{Page: 1, PerPage: 100},
 	}
 
-	repos, resp, err := client.Activity.ListStarred(context.Background(), username, opt)
+	repos, _, err := client.Activity.ListStarred(context.Background(), username, opt)
 	if err != nil {
 		fmt.Println("Something wrong to get stared")
 		return nil
 	}
-	allStared = append(allStared, repos...)
-
-	totalPages := resp.LastPage
-	for page := 2; page <= totalPages; page++ {
-		wg.Add(1)
-		go func(pageNum int) {
-			defer wg.Done()
-			opt.Page = pageNum
-			repos, _, err := client.Activity.ListStarred(context.Background(), username, opt)
-			if err != nil {
-				fmt.Println("Error fetching starred page", pageNum, err)
-				return
-			}
-			mutex.Lock()
-			allStared = append(allStared, repos...)
-			mutex.Unlock()
-		}(page)
-	}
-	wg.Wait()
-	return allStared
+	return repos
 }
 
 func makeCreatedRepos(repos []*github.Repository) ([]myRepoInfo, int, int) {
@@ -242,15 +219,27 @@ func makeCreatedRepos(repos []*github.Repository) ([]myRepoInfo, int, int) {
 func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int) {
 	prMap := make(map[string]map[string]interface{})
 	totalCount := 0
+
+	// 新增缓存
+	repoCache := make(map[string]*github.Repository)
+
 	for _, issue := range issues {
 		if *issue.AuthorAssociation == "OWNER" {
 			continue
 		}
 		repoName, owner := getRepoNameAndOwner(*issue.RepositoryURL)
-		repo, _, err := client.Repositories.Get(context.Background(), owner, repoName)
-		if err != nil {
-			fmt.Println(repoName, "Something wrong to get repo language", err)
-			continue
+		repoKey := owner + "/" + repoName
+		var repo *github.Repository
+		if cachedRepo, ok := repoCache[repoKey]; ok {
+			repo = cachedRepo
+		} else {
+			var err error
+			repo, _, err = client.Repositories.Get(context.Background(), owner, repoName)
+			if err != nil {
+				fmt.Println(repoName, "Something wrong to get repo language", err)
+				continue
+			}
+			repoCache[repoKey] = repo
 		}
 		if *repo.Private == true {
 			continue
