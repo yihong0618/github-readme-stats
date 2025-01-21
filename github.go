@@ -4,7 +4,6 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"math/rand"
 	"os"
 	"path"
@@ -33,7 +32,6 @@ var (
 )
 
 var baseURL = "https://github.com/"
-var myTitle = "# My GitHub Status\n"
 var myCreatedTitle = "## The repos I created\n"
 var myContributedTitle = "## The repos I contributed to\n"
 
@@ -241,7 +239,7 @@ func makePrRepos(issues []*github.Issue, client *github.Client) ([]myPrInfo, int
 			}
 			repoCache[repoKey] = repo
 		}
-		if *repo.Private == true {
+		if *repo.Private {
 			continue
 		}
 		if len(prMap[repoName]) == 0 {
@@ -449,7 +447,7 @@ func main() {
 	myPrString := makeContributedString(myPRs, totalPrCount)
 
 	readMeFile := path.Join(os.Getenv("GITHUB_WORKSPACE"), "README.md")
-	readMeContent, err := ioutil.ReadFile(readMeFile)
+	readMeContent, err := os.ReadFile(readMeFile)
 	if err != nil {
 		panic(err)
 	}
@@ -459,7 +457,7 @@ func main() {
 		newContentString = newContentString + myStaredString
 	}
 	newContent := []byte(re.ReplaceAllString(string(readMeContent), `$1`+"\n"+newContentString+`$3`))
-	err = ioutil.WriteFile(readMeFile, newContent, 0644)
+	err = os.WriteFile(readMeFile, newContent, 0644)
 	if err != nil {
 		panic(err)
 	}
