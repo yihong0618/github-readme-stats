@@ -93,7 +93,6 @@ func getRepoNameAndOwner(RepositoryURL string) (string, string) {
 	return q[len(q)-1], q[len(q)-2]
 }
 
-// 添加新的结构体来存储所有数据
 type AllData struct {
 	repos  []*github.Repository
 	issues []*github.Issue
